@@ -6,449 +6,421 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>IELTS Vocab</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Lora:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Lora:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
 <style>
-/* ── THEMES ── */
-body.light {
-  --bg: #fafbff;
-  --surface: #ffffff;
-  --card: #ffffff;
-  --card2: #f8f9fd;
-  --border: #e2e8f0;
-  --text: #0f1419;
-  --muted: #7c8ba3;
-  --dim: #5a6680;
-  --shadow: 0 2px 12px rgba(45,111,232,.08);
-  --shadow2: 0 4px 20px rgba(45,111,232,.12);
-  --gold: #d97706;
-  --gold-bg: #fef3c7;
-  --blue: #2563eb;
-  --blue-bg: #dbeafe;
-  --green: #16a34a;
-  --green-bg: #dcfce7;
-  --orange: #ea580c;
-  --orange-bg: #fed7aa;
-  --red: #dc2626;
-  --red-bg: #fee2e2;
-  --purple: #7c3aed;
-  --purple-bg: #ede9fe;
-  --header-bg: #ffffff;
-  --topic-active-bg: #dbeafe;
-  --topic-active-border: #2563eb;
-  --topic-active-text: #2563eb;
-}
-body.dark {
-  --bg: #0b0d12;
-  --surface: #13161e;
-  --card: #1a1e28;
-  --card2: #141820;
-  --border: #252a38;
-  --text: #e8e3da;
-  --muted: #5a6070;
-  --dim: #8a8f9a;
-  --shadow: 0 2px 16px rgba(0,0,0,.3);
-  --shadow2: 0 4px 24px rgba(0,0,0,.4);
-  --gold: #d4a843;
-  --gold-bg: rgba(212,168,67,.12);
-  --blue: #4a8fe8;
-  --blue-bg: rgba(74,143,232,.12);
-  --green: #52c47a;
-  --green-bg: rgba(82,196,122,.12);
-  --orange: #e8843a;
-  --orange-bg: rgba(232,132,58,.12);
-  --red: #e05050;
-  --red-bg: rgba(224,80,80,.12);
-  --purple: #9b7de8;
-  --purple-bg: rgba(155,125,232,.12);
-  --header-bg: #13161e;
-  --topic-active-bg: rgba(74,143,232,.15);
-  --topic-active-border: #4a8fe8;
-  --topic-active-text: #4a8fe8;
-}
-
+body.light{--bg:#f0f4ff;--surface:#fff;--card:#fff;--card2:#f7f9ff;--border:#dde3f5;--text:#1a1d2e;--muted:#8891b0;--dim:#6b75a0;--sh:0 2px 16px rgba(80,100,200,.10);--sh2:0 4px 24px rgba(80,100,200,.13);--gold:#e08c00;--goldbg:#fff7e0;--blue:#2d6fe8;--bluebg:#e8f0ff;--green:#1a9e5c;--greenbg:#e4f8ee;--orange:#d96020;--orangebg:#fff0e6;--red:#d63030;--redbg:#ffe8e8;--purple:#7040d0;--purplebg:#f0eaff;--hbg:#fff;--tacbg:#e8f0ff;--tacb:#2d6fe8;--tact:#2d6fe8;}
+body.dark{--bg:#0b0d12;--surface:#13161e;--card:#1a1e28;--card2:#141820;--border:#252a38;--text:#e8e3da;--muted:#5a6070;--dim:#8a8f9a;--sh:0 2px 16px rgba(0,0,0,.3);--sh2:0 4px 24px rgba(0,0,0,.4);--gold:#d4a843;--goldbg:rgba(212,168,67,.12);--blue:#4a8fe8;--bluebg:rgba(74,143,232,.12);--green:#52c47a;--greenbg:rgba(82,196,122,.12);--orange:#e8843a;--orangebg:rgba(232,132,58,.12);--red:#e05050;--redbg:rgba(224,80,80,.12);--purple:#9b7de8;--purplebg:rgba(155,125,232,.12);--hbg:#13161e;--tacbg:rgba(74,143,232,.15);--tacb:#4a8fe8;--tact:#4a8fe8;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html{height:100%;}
-body{
-  min-height:100%;
-  background:var(--bg);
-  color:var(--text);
-  font-family:'Nunito',sans-serif;
-  font-weight:400;
-  transition:background .25s,color .25s;
-}
-
-/* ── SCREENS ── */
+body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;font-weight:400;transition:background .25s,color .25s;}
 .screen{display:none;flex-direction:column;min-height:100vh;}
 .screen.active{display:flex;}
-
-/* ── HEADER ── */
-.app-header{
-  position:sticky;top:0;z-index:50;
-  background:var(--header-bg);
-  border-bottom:1px solid var(--border);
-  padding:14px 20px;
-  display:flex;align-items:center;justify-content:space-between;
-  box-shadow:var(--shadow);
-}
-.app-logo{font-family:'Lora',serif;font-size:1.15rem;font-weight:600;color:var(--gold);}
-.app-logo span{color:var(--text);font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:600;margin-left:6px;opacity:.6;}
-.theme-toggle{
-  background:var(--card2);border:1px solid var(--border);
-  border-radius:20px;padding:5px 12px;
-  font-size:.8rem;cursor:pointer;color:var(--text);
-  font-family:'Nunito',sans-serif;font-weight:700;
-  transition:all .2s;
-}
-.theme-toggle:active{transform:scale(.94);}
-
-/* ── HOME SCREEN ── */
-#homeScreen{background:var(--bg);}
-.home-content{flex:1;padding:20px;display:flex;flex-direction:column;gap:16px;padding-bottom:calc(20px + env(safe-area-inset-bottom,0px));}
-
-/* hero */
-.hero-card{
-  background:linear-gradient(135deg,var(--blue) 0%,var(--purple) 100%);
-  border-radius:20px;
-  padding:24px 22px;
-  color:#fff;
-  box-shadow:var(--shadow2);
-}
-.hero-title{font-family:'Lora',serif;font-size:1.5rem;font-weight:600;line-height:1.2;margin-bottom:6px;}
-.hero-sub{font-size:.8rem;opacity:.85;line-height:1.6;}
-.stats-row{display:flex;gap:8px;margin-top:16px;}
-.stat-box{flex:1;background:rgba(255,255,255,.18);border-radius:12px;padding:10px 8px;text-align:center;backdrop-filter:blur(4px);}
-.stat-n{font-size:1.4rem;font-weight:800;}
-.stat-l{font-size:.62rem;opacity:.8;text-transform:uppercase;letter-spacing:.06em;margin-top:1px;}
-
-/* streak */
-.streak-card{
-  background:var(--gold-bg);
-  border:1.5px solid var(--gold);
-  border-radius:16px;padding:14px 16px;
-  display:flex;align-items:center;gap:12px;
-}
-.streak-fire{font-size:1.6rem;}
-.streak-info{flex:1;}
-.streak-days{font-size:.95rem;font-weight:800;color:var(--gold);}
-.streak-sub{font-size:.72rem;color:var(--muted);margin-top:2px;}
-.streak-badge{
-  background:var(--gold);color:#fff;
-  font-size:.65rem;font-weight:700;
-  padding:4px 9px;border-radius:20px;
-  white-space:nowrap;
-}
-
-/* section */
-.section-title{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
-
-/* topic grid */
-.topic-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.topic-chip{
-  background:var(--surface);border:1.5px solid var(--border);
-  border-radius:14px;padding:14px 12px;
-  cursor:pointer;transition:all .18s;
-  box-shadow:var(--shadow);
-}
-.topic-chip.active{
-  border-color:var(--topic-active-border);
-  background:var(--topic-active-bg);
-}
-.topic-chip:active{transform:scale(.95);}
-.tc-icon{font-size:1.4rem;display:block;margin-bottom:6px;}
-.tc-name{font-size:.82rem;font-weight:700;color:var(--text);}
-.topic-chip.active .tc-name{color:var(--topic-active-text);}
-.tc-count{font-size:.65rem;color:var(--muted);margin-top:3px;}
-.tc-prog{height:3px;background:var(--border);border-radius:2px;margin-top:8px;overflow:hidden;}
-.tc-prog-fill{height:100%;border-radius:2px;background:var(--topic-active-border);transition:width .3s;}
-
-/* buttons */
-.btn-primary{
-  background:linear-gradient(135deg,var(--blue),var(--purple));
-  color:#fff;border:none;border-radius:14px;
-  padding:16px;font-size:1rem;font-weight:800;
-  font-family:'Nunito',sans-serif;cursor:pointer;width:100%;
-  box-shadow:0 4px 16px rgba(37,99,235,.35);
-  transition:all .15s;
-}
-.btn-primary:active{transform:scale(.97);opacity:.9;}
-.btn-secondary{
-  background:var(--surface);color:var(--text);
-  border:1.5px solid var(--border);border-radius:14px;
-  padding:14px;font-size:.9rem;font-weight:700;
-  font-family:'Nunito',sans-serif;cursor:pointer;width:100%;
-  transition:all .15s;
-}
-.btn-secondary:active{transform:scale(.97);}
-
-/* ── STUDY SCREEN ── */
-#studyScreen{background:var(--bg);}
-.study-content{flex:1;display:flex;flex-direction:column;padding:16px;gap:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));}
-
-.study-progress{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:14px;padding:12px 16px;
-  display:flex;align-items:center;gap:12px;
-}
-.prog-topic{font-size:.82rem;font-weight:700;flex:1;}
-.prog-fraction{font-size:.78rem;color:var(--muted);font-weight:600;white-space:nowrap;}
-.prog-bar-wrap{height:5px;background:var(--border);border-radius:3px;margin-top:8px;overflow:hidden;}
-.prog-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));border-radius:3px;transition:width .4s ease;}
-
-/* flashcard */
-.card-container{flex:1;display:flex;align-items:center;justify-content:center;min-height:280px;}
-.card-3d{width:100%;perspective:1200px;cursor:pointer;}
-.card-inner{
-  position:relative;width:100%;min-height:280px;
-  transition:transform .45s cubic-bezier(.4,0,.2,1);
-  transform-style:preserve-3d;
-}
-.card-3d.flipped .card-inner{transform:rotateY(180deg);}
-.card-face{
-  backface-visibility:hidden;-webkit-backface-visibility:hidden;
-  background:var(--surface);
-  border:1.5px solid var(--border);
-  border-radius:20px;
-  padding:28px 24px;
-  box-shadow:var(--shadow2);
-}
-.card-face.back{
-  position:absolute;top:0;left:0;right:0;
-  transform:rotateY(180deg);
-  display:flex;flex-direction:column;
-  gap:10px;
-}
-.card-face.front{
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  text-align:center;gap:10px;min-height:280px;
-}
-.card-badge{
-  font-size:.65rem;font-weight:800;text-transform:uppercase;
-  letter-spacing:.1em;padding:4px 12px;border-radius:20px;
-  background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue);
-}
-.card-badge.new-badge{background:var(--green-bg);color:var(--green);border-color:var(--green);}
-.card-word{font-family:'Lora',serif;font-size:2.2rem;font-weight:600;line-height:1.2;color:var(--text);}
-.card-phonetic{font-size:.82rem;color:var(--muted);font-style:italic;}
-.tap-hint{font-size:.72rem;color:var(--muted);margin-top:4px;}
-
-/* back side */
-.pos-tag{
-  display:inline-flex;align-items:center;
-  font-size:.68rem;font-weight:800;text-transform:uppercase;
-  letter-spacing:.08em;padding:3px 10px;border-radius:20px;align-self:flex-start;
-}
-.pos-tag.noun{background:var(--blue-bg);color:var(--blue);}
-.pos-tag.verb{background:var(--green-bg);color:var(--green);}
-.pos-tag.adj{background:var(--purple-bg);color:var(--purple);}
-.pos-tag.adv{background:var(--orange-bg);color:var(--orange);}
-
-.back-meaning{font-size:1rem;font-weight:700;line-height:1.5;color:var(--text);}
-.back-viet{
-  background:var(--gold-bg);border:1px solid var(--gold);
-  border-radius:10px;padding:8px 12px;
-  font-size:.85rem;font-weight:700;color:var(--gold);
-}
-.back-sentence{
-  background:var(--card2);border-left:3px solid var(--blue);
-  border-radius:0 10px 10px 0;
-  padding:10px 12px;
-  font-family:'Lora',serif;font-style:italic;
-  font-size:.83rem;line-height:1.65;color:var(--dim);
-}
-.back-sentence em{color:var(--blue);font-style:normal;font-weight:700;}
-.colloc-section{}
-.colloc-label{font-size:.63rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:6px;}
-.colloc-tags{display:flex;flex-wrap:wrap;gap:5px;}
-.colloc-tag{
-  background:var(--card2);border:1px solid var(--border);
-  border-radius:8px;padding:4px 10px;
-  font-size:.72rem;color:var(--dim);font-weight:600;
-}
-
-/* rating */
-.rating-section{flex-shrink:0;}
-.rating-hint{font-size:.7rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.08em;text-align:center;margin-bottom:10px;}
-.rating-btns{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;}
-.rate-btn{
-  border:none;border-radius:14px;padding:12px 6px;
-  font-size:.72rem;font-weight:800;
-  font-family:'Nunito',sans-serif;cursor:pointer;
-  transition:all .15s;line-height:1.3;
-}
-.rate-btn:active{transform:scale(.92);}
-.rate-emoji{font-size:1.2rem;display:block;margin-bottom:3px;}
-.rate-btn.r1{background:var(--red-bg);color:var(--red);}
-.rate-btn.r2{background:var(--orange-bg);color:var(--orange);}
-.rate-btn.r3{background:var(--blue-bg);color:var(--blue);}
-.rate-btn.r4{background:var(--green-bg);color:var(--green);}
-.rate-btn.hidden-r{opacity:0;pointer-events:none;}
-
-/* ── DONE SCREEN ── */
-#doneScreen{
-  background:var(--bg);
-  align-items:center;justify-content:center;
-  padding:32px 24px;gap:16px;
-  padding-bottom:calc(32px + env(safe-area-inset-bottom,0px));
-}
-.done-emoji{font-size:4rem;}
-.done-title{font-family:'Lora',serif;font-size:1.6rem;font-weight:600;color:var(--gold);text-align:center;}
-.done-sub{font-size:.85rem;color:var(--muted);text-align:center;line-height:1.6;max-width:260px;}
+/* HEADER */
+.hdr{position:sticky;top:0;z-index:50;background:var(--hbg);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--sh);}
+.logo{font-family:'Lora',serif;font-size:1.1rem;font-weight:600;color:var(--gold);}
+.logo span{color:var(--text);font-family:'Nunito',sans-serif;font-size:.75rem;font-weight:600;margin-left:6px;opacity:.55;}
+.hbtn{background:var(--card2);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:.78rem;cursor:pointer;color:var(--text);font-family:'Nunito',sans-serif;font-weight:700;transition:all .2s;}
+.hbtn:active{transform:scale(.93);}
+/* HOME */
+.home-body{flex:1;padding:16px;display:flex;flex-direction:column;gap:14px;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));}
+.hero{background:linear-gradient(135deg,var(--blue) 0%,var(--purple) 100%);border-radius:20px;padding:22px 20px;color:#fff;box-shadow:var(--sh2);}
+.hero h1{font-family:'Lora',serif;font-size:1.4rem;font-weight:600;line-height:1.2;margin-bottom:5px;}
+.hero p{font-size:.78rem;opacity:.88;line-height:1.55;}
+.srow{display:flex;gap:8px;margin-top:14px;}
+.sbox{flex:1;background:rgba(255,255,255,.18);border-radius:12px;padding:10px 6px;text-align:center;backdrop-filter:blur(4px);}
+.sbox .n{font-size:1.35rem;font-weight:800;}
+.sbox .l{font-size:.58rem;opacity:.8;text-transform:uppercase;letter-spacing:.06em;margin-top:1px;}
+.streak-c{background:var(--goldbg);border:1.5px solid var(--gold);border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:10px;}
+.streak-c .fire{font-size:1.5rem;}
+.streak-c .inf{flex:1;}
+.streak-c .days{font-size:.9rem;font-weight:800;color:var(--gold);}
+.streak-c .sub{font-size:.7rem;color:var(--muted);margin-top:2px;}
+.streak-c .badge{background:var(--gold);color:#fff;font-size:.62rem;font-weight:700;padding:4px 9px;border-radius:20px;white-space:nowrap;}
+.sec-title{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
+.tgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.tchip{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:12px;cursor:pointer;transition:all .18s;box-shadow:var(--sh);}
+.tchip.on{border-color:var(--tacb);background:var(--tacbg);}
+.tchip:active{transform:scale(.95);}
+.tchip .ti{font-size:1.3rem;display:block;margin-bottom:5px;}
+.tchip .tn{font-size:.8rem;font-weight:700;color:var(--text);}
+.tchip.on .tn{color:var(--tact);}
+.tchip .tc{font-size:.62rem;color:var(--muted);margin-top:2px;}
+.tprog{height:3px;background:var(--border);border-radius:2px;margin-top:7px;overflow:hidden;}
+.tprog-f{height:100%;border-radius:2px;background:var(--tacb);transition:width .3s;}
+/* MODE CARDS */
+.modes-grid{display:flex;flex-direction:column;gap:8px;}
+.mode-card{background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .18s;box-shadow:var(--sh);}
+.mode-card:active{transform:scale(.97);}
+.mode-card .mico{font-size:1.6rem;flex-shrink:0;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;}
+.mode-card .minfo{flex:1;}
+.mode-card .mname{font-size:.9rem;font-weight:800;}
+.mode-card .mdesc{font-size:.72rem;color:var(--muted);margin-top:2px;line-height:1.4;}
+.mode-card .mbadge{font-size:.62rem;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap;}
+.btn-p{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;border:none;border-radius:14px;padding:15px;font-size:.95rem;font-weight:800;font-family:'Nunito',sans-serif;cursor:pointer;width:100%;box-shadow:0 4px 16px rgba(74,143,232,.3);transition:all .15s;}
+.btn-p:active{transform:scale(.97);opacity:.9;}
+.btn-s{background:var(--surface);color:var(--text);border:1.5px solid var(--border);border-radius:14px;padding:13px;font-size:.88rem;font-weight:700;font-family:'Nunito',sans-serif;cursor:pointer;width:100%;transition:all .15s;}
+.btn-s:active{transform:scale(.97);}
+/* STUDY HEADER */
+.study-body{flex:1;display:flex;flex-direction:column;padding:14px;gap:11px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));}
+.prog-bar-c{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 14px;}
+.prog-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;}
+.prog-label{font-size:.8rem;font-weight:700;}
+.prog-frac{font-size:.75rem;color:var(--muted);font-weight:600;}
+.pbar{height:5px;background:var(--border);border-radius:3px;overflow:hidden;}
+.pbar-f{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));border-radius:3px;transition:width .4s ease;}
+/* FLASHCARD */
+.card-wrap{flex:1;display:flex;align-items:center;justify-content:center;min-height:260px;}
+.card3d{width:100%;perspective:1200px;cursor:pointer;}
+.card-inner{position:relative;width:100%;min-height:260px;transition:transform .42s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d;}
+.card3d.flipped .card-inner{transform:rotateY(180deg);}
+.cface{backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--surface);border:1.5px solid var(--border);border-radius:20px;padding:26px 22px;box-shadow:var(--sh2);}
+.cface.front{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:9px;min-height:260px;}
+.cface.back{position:absolute;top:0;left:0;right:0;transform:rotateY(180deg);display:flex;flex-direction:column;gap:9px;min-height:260px;}
+.cbadge{font-size:.63rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;padding:4px 11px;border-radius:20px;background:var(--bluebg);color:var(--blue);border:1px solid var(--blue);}
+.cbadge.newb{background:var(--greenbg);color:var(--green);border-color:var(--green);}
+.cword{font-family:'Lora',serif;font-size:2rem;font-weight:600;line-height:1.2;}
+.cph{font-size:.8rem;color:var(--muted);font-style:italic;}
+.speak-btn{display:inline-flex;align-items:center;gap:6px;background:var(--bluebg);color:var(--blue);border:1.5px solid var(--blue);border-radius:20px;padding:7px 16px;font-size:.78rem;font-weight:700;font-family:'Nunito',sans-serif;cursor:pointer;transition:all .15s;}
+.speak-btn:active{transform:scale(.92);}
+.speak-btn.sp{background:var(--blue);color:#fff;animation:spulse .6s ease-in-out infinite alternate;}
+@keyframes spulse{from{opacity:.8}to{opacity:1;transform:scale(1.04)}}
+.tap-hint{font-size:.7rem;color:var(--muted);margin-top:3px;}
+.pos-tag{display:inline-flex;align-items:center;font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:3px 9px;border-radius:20px;align-self:flex-start;}
+.pos-tag.noun{background:var(--bluebg);color:var(--blue);}
+.pos-tag.verb{background:var(--greenbg);color:var(--green);}
+.pos-tag.adj{background:var(--purplebg);color:var(--purple);}
+.pos-tag.adv{background:var(--orangebg);color:var(--orange);}
+.back-mean{font-size:.97rem;font-weight:700;line-height:1.45;}
+.back-viet{background:var(--goldbg);border:1px solid var(--gold);border-radius:10px;padding:8px 11px;font-size:.82rem;font-weight:700;color:var(--gold);}
+.back-sent{background:var(--card2);border-left:3px solid var(--blue);border-radius:0 10px 10px 0;padding:9px 11px;font-family:'Lora',serif;font-style:italic;font-size:.8rem;line-height:1.6;color:var(--dim);}
+.back-sent em{color:var(--blue);font-style:normal;font-weight:700;}
+.col-lbl{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:5px;}
+.col-tags{display:flex;flex-wrap:wrap;gap:5px;}
+.col-tag{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:3px 9px;font-size:.7rem;color:var(--dim);font-weight:600;}
+/* RATING */
+.rating-sec{flex-shrink:0;}
+.rate-hint{font-size:.68rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.08em;text-align:center;margin-bottom:9px;}
+.rate-btns{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:7px;}
+.rb{border:none;border-radius:13px;padding:11px 5px;font-size:.7rem;font-weight:800;font-family:'Nunito',sans-serif;cursor:pointer;transition:all .15s;line-height:1.3;}
+.rb:active{transform:scale(.92);}
+.rb .re{font-size:1.1rem;display:block;margin-bottom:3px;}
+.rb.r1{background:var(--redbg);color:var(--red);}
+.rb.r2{background:var(--orangebg);color:var(--orange);}
+.rb.r3{background:var(--bluebg);color:var(--blue);}
+.rb.r4{background:var(--greenbg);color:var(--green);}
+.rb.hr{opacity:0;pointer-events:none;}
+/* QUIZ MODE */
+.quiz-wrap{flex:1;display:flex;flex-direction:column;gap:12px;}
+.quiz-q{background:var(--surface);border:1.5px solid var(--border);border-radius:18px;padding:22px 20px;text-align:center;}
+.quiz-type{font-size:.63rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:10px;}
+.quiz-word{font-family:'Lora',serif;font-size:1.8rem;font-weight:600;margin-bottom:6px;}
+.quiz-ph{font-size:.78rem;color:var(--muted);font-style:italic;}
+.quiz-opts{display:flex;flex-direction:column;gap:8px;}
+.qopt{background:var(--surface);border:1.5px solid var(--border);border-radius:13px;padding:13px 16px;text-align:left;font-size:.85rem;font-weight:600;font-family:'Nunito',sans-serif;cursor:pointer;color:var(--text);transition:all .18s;line-height:1.4;}
+.qopt:active{transform:scale(.98);}
+.qopt.correct{background:var(--greenbg);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--redbg);border-color:var(--red);color:var(--red);}
+.qopt.show-correct{background:var(--greenbg);border-color:var(--green);color:var(--green);}
+.qopt:disabled{cursor:default;}
+/* TYPING MODE */
+.typing-wrap{flex:1;display:flex;flex-direction:column;gap:12px;}
+.typing-q{background:var(--surface);border:1.5px solid var(--border);border-radius:18px;padding:22px 20px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;}
+.typing-clue{font-size:.85rem;font-weight:600;line-height:1.5;color:var(--text);}
+.typing-viet{background:var(--goldbg);border:1px solid var(--gold);border-radius:10px;padding:8px 14px;font-size:.82rem;font-weight:700;color:var(--gold);width:100%;}
+.typing-sent{background:var(--card2);border-left:3px solid var(--blue);border-radius:0 10px 10px 0;padding:9px 12px;font-family:'Lora',serif;font-style:italic;font-size:.78rem;line-height:1.6;color:var(--dim);width:100%;text-align:left;}
+.typing-sent em{color:var(--blue);font-style:normal;font-weight:700;background:var(--bluebg);padding:0 4px;border-radius:4px;}
+.type-input{width:100%;background:var(--card2);border:2px solid var(--border);border-radius:12px;padding:13px 16px;font-size:1rem;font-weight:700;font-family:'Nunito',sans-serif;color:var(--text);outline:none;transition:border .2s;text-align:center;}
+.type-input:focus{border-color:var(--blue);}
+.type-input.ok{border-color:var(--green);background:var(--greenbg);color:var(--green);}
+.type-input.bad{border-color:var(--red);background:var(--redbg);color:var(--red);}
+.type-answer{font-size:.82rem;color:var(--green);font-weight:700;text-align:center;padding:6px;display:none;}
+.type-btns{display:flex;gap:8px;}
+.type-btns .tb{flex:1;border:none;border-radius:12px;padding:13px;font-size:.85rem;font-weight:800;font-family:'Nunito',sans-serif;cursor:pointer;transition:all .15s;}
+.type-btns .tb:active{transform:scale(.96);}
+.tb.check{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;}
+.tb.skip{background:var(--surface);border:1.5px solid var(--border);color:var(--muted);}
+/* FILL BLANK */
+.fill-wrap{flex:1;display:flex;flex-direction:column;gap:12px;}
+.fill-q{background:var(--surface);border:1.5px solid var(--border);border-radius:18px;padding:22px 20px;display:flex;flex-direction:column;gap:12px;}
+.fill-sent-lbl{font-size:.63rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
+.fill-sent{font-family:'Lora',serif;font-size:1.05rem;line-height:1.8;color:var(--text);}
+.fill-blank{display:inline-block;min-width:90px;border-bottom:2.5px solid var(--blue);padding:0 6px;text-align:center;font-weight:800;color:var(--blue);font-family:'Nunito',sans-serif;font-size:1rem;}
+.fill-hint{font-size:.75rem;color:var(--muted);line-height:1.5;}
+.fill-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.fopt{background:var(--card2);border:1.5px solid var(--border);border-radius:12px;padding:11px 10px;font-size:.82rem;font-weight:700;font-family:'Nunito',sans-serif;cursor:pointer;color:var(--text);transition:all .18s;text-align:center;}
+.fopt:active{transform:scale(.96);}
+.fopt.correct{background:var(--greenbg);border-color:var(--green);color:var(--green);}
+.fopt.wrong{background:var(--redbg);border-color:var(--red);color:var(--red);}
+.fopt.show-correct{background:var(--greenbg);border-color:var(--green);color:var(--green);}
+.fopt:disabled{cursor:default;}
+/* LISTEN MODE */
+.listen-wrap{flex:1;display:flex;flex-direction:column;gap:12px;}
+.listen-q{background:var(--surface);border:1.5px solid var(--border);border-radius:18px;padding:30px 20px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;}
+.listen-btn{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--purple));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:2rem;box-shadow:0 6px 24px rgba(74,143,232,.4);transition:all .2s;}
+.listen-btn:active{transform:scale(.93);}
+.listen-btn.playing{animation:lpulse 1s ease-in-out infinite;}
+@keyframes lpulse{0%,100%{box-shadow:0 6px 24px rgba(74,143,232,.4)}50%{box-shadow:0 6px 36px rgba(74,143,232,.7);transform:scale(1.05)}}
+.listen-hint{font-size:.82rem;color:var(--muted);line-height:1.5;}
+.listen-input{width:100%;background:var(--card2);border:2px solid var(--border);border-radius:12px;padding:13px 16px;font-size:1rem;font-weight:700;font-family:'Nunito',sans-serif;color:var(--text);outline:none;transition:border .2s;text-align:center;}
+.listen-input:focus{border-color:var(--blue);}
+.listen-input.ok{border-color:var(--green);background:var(--greenbg);color:var(--green);}
+.listen-input.bad{border-color:var(--red);background:var(--redbg);color:var(--red);}
+.listen-reveal{font-size:.9rem;font-weight:700;color:var(--green);text-align:center;display:none;padding:6px;}
+/* MATCH MODE */
+.match-wrap{flex:1;display:flex;flex-direction:column;gap:10px;}
+.match-info{font-size:.78rem;color:var(--muted);text-align:center;}
+.match-timer{font-size:1.1rem;font-weight:800;color:var(--blue);text-align:center;}
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.mcell{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:12px 10px;font-size:.78rem;font-weight:700;cursor:pointer;transition:all .18s;text-align:center;line-height:1.4;min-height:56px;display:flex;align-items:center;justify-content:center;}
+.mcell:active{transform:scale(.95);}
+.mcell.sel{border-color:var(--blue);background:var(--bluebg);color:var(--blue);}
+.mcell.matched{border-color:var(--green);background:var(--greenbg);color:var(--green);pointer-events:none;opacity:.7;}
+.mcell.wrong-flash{border-color:var(--red);background:var(--redbg);color:var(--red);}
+.mcell.word{font-family:'Lora',serif;font-size:.85rem;}
+.mcell.meaning{font-size:.72rem;color:var(--dim);}
+.mcell.meaning.sel{color:var(--blue);}
+/* NEXT BTN */
+.next-btn{background:linear-gradient(135deg,var(--green),#1a9e5c);color:#fff;border:none;border-radius:13px;padding:14px;font-size:.9rem;font-weight:800;font-family:'Nunito',sans-serif;cursor:pointer;width:100%;transition:all .15s;display:none;}
+.next-btn:active{transform:scale(.97);}
+.next-btn.show{display:block;}
+/* DONE */
+.done-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 20px;gap:14px;padding-bottom:calc(28px + env(safe-area-inset-bottom,0px));}
+.done-emoji{font-size:3.5rem;}
+.done-title{font-family:'Lora',serif;font-size:1.5rem;font-weight:600;color:var(--gold);text-align:center;}
+.done-sub{font-size:.82rem;color:var(--muted);text-align:center;line-height:1.6;max-width:260px;}
 .done-stats{display:flex;gap:10px;width:100%;max-width:340px;}
-.done-stat{
-  flex:1;background:var(--surface);border:1.5px solid var(--border);
-  border-radius:16px;padding:16px 10px;text-align:center;
-  box-shadow:var(--shadow);
-}
-.ds-n{font-size:1.7rem;font-weight:800;}
-.ds-l{font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-top:3px;}
-
-/* ── TOAST ── */
-.toast{
-  position:fixed;bottom:80px;left:50%;
-  transform:translateX(-50%) translateY(10px);
-  background:var(--text);color:var(--bg);
-  border-radius:12px;padding:10px 18px;
-  font-size:.8rem;font-weight:700;
-  white-space:nowrap;opacity:0;
-  transition:all .25s;pointer-events:none;z-index:999;
-}
+.dstat{flex:1;background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:14px 8px;text-align:center;box-shadow:var(--sh);}
+.dstat .dn{font-size:1.5rem;font-weight:800;}
+.dstat .dl{font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-top:2px;}
+/* TOAST */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--text);color:var(--bg);border-radius:12px;padding:9px 18px;font-size:.78rem;font-weight:700;white-space:nowrap;opacity:0;transition:all .25s;pointer-events:none;z-index:999;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+/* result flash */
+.result-msg{text-align:center;font-size:.85rem;font-weight:800;padding:8px;border-radius:10px;display:none;}
+.result-msg.show{display:block;}
+.result-msg.ok{background:var(--greenbg);color:var(--green);}
+.result-msg.bad{background:var(--redbg);color:var(--red);}
 </style>
 </head>
 <body class="light">
 
-<!-- ── HOME ── -->
-<div class="screen active" id="homeScreen">
-  <div class="app-header">
-    <div class="app-logo">✦ IELTS Vocab <span>Beginner → Band 7</span></div>
-    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 Tối</button>
+<!-- ══ HOME ══ -->
+<div class="screen active" id="S-home">
+  <div class="hdr">
+    <div class="logo">✦ IELTS Vocab <span>5 modes · SRS</span></div>
+    <button class="hbtn" onclick="toggleTheme()" id="themeBtn">🌙 Tối</button>
   </div>
-
-  <div class="home-content">
-    <!-- Hero -->
-    <div class="hero-card">
-      <div class="hero-title">Học từ vựng IELTS</div>
-      <div class="hero-sub">Spaced Repetition · Active Recall · Context Learning<br>Nhớ sâu, không quên nhờ khoa học não bộ</div>
-      <div class="stats-row">
-        <div class="stat-box"><div class="stat-n" id="statTotal">0</div><div class="stat-l">Đã học</div></div>
-        <div class="stat-box"><div class="stat-n" id="statDue">0</div><div class="stat-l">Cần ôn</div></div>
-        <div class="stat-box"><div class="stat-n" id="statStreak">0</div><div class="stat-l">Streak</div></div>
+  <div class="home-body">
+    <div class="hero">
+      <h1>Học từ vựng IELTS</h1>
+      <p>5 phương pháp học khoa học — Flashcard · Quiz · Typing · Fill Blank · Listening</p>
+      <div class="srow">
+        <div class="sbox"><div class="n" id="hLearned">0</div><div class="l">Đã học</div></div>
+        <div class="sbox"><div class="n" id="hDue">0</div><div class="l">Cần ôn</div></div>
+        <div class="sbox"><div class="n" id="hStreak">0</div><div class="l">Streak</div></div>
       </div>
     </div>
-
-    <!-- Streak -->
-    <div class="streak-card">
-      <span class="streak-fire">🔥</span>
-      <div class="streak-info">
-        <div class="streak-days" id="streakDays">0 ngày streak</div>
-        <div class="streak-sub">Học mỗi ngày để không mất streak</div>
+    <div class="streak-c">
+      <span class="fire">🔥</span>
+      <div class="inf">
+        <div class="days" id="hStreakDays">0 ngày streak</div>
+        <div class="sub">Học mỗi ngày để duy trì streak</div>
       </div>
-      <span class="streak-badge" id="streakToday">Chưa học</span>
+      <span class="badge" id="hStreakBadge">Chưa học</span>
     </div>
-
-    <!-- Topics -->
-    <div class="section-title">Chọn chủ đề học</div>
-    <div class="topic-grid" id="topicGrid"></div>
-
-    <!-- Actions -->
-    <button class="btn-primary" onclick="startSession(false)">▶ Bắt đầu ôn tập</button>
-    <button class="btn-secondary" onclick="startSession(true)">＋ Học từ mới</button>
+    <div class="sec-title">Chọn chủ đề</div>
+    <div class="tgrid" id="topicGrid"></div>
+    <div class="sec-title">Chọn chế độ học</div>
+    <div class="modes-grid">
+      <div class="mode-card" onclick="startMode('flash')">
+        <div class="mico" style="background:var(--bluebg)">🃏</div>
+        <div class="minfo"><div class="mname">Flashcard + SRS</div><div class="mdesc">Lật thẻ · tự đánh giá · ôn đúng lúc não quên</div></div>
+        <span class="mbadge" style="background:var(--bluebg);color:var(--blue)">Cơ bản</span>
+      </div>
+      <div class="mode-card" onclick="startMode('quiz')">
+        <div class="mico" style="background:var(--purplebg)">🎯</div>
+        <div class="minfo"><div class="mname">Quiz 4 đáp án</div><div class="mdesc">Chọn đúng nghĩa từ · nhận biết nhanh</div></div>
+        <span class="mbadge" style="background:var(--purplebg);color:var(--purple)">Nhanh</span>
+      </div>
+      <div class="mode-card" onclick="startMode('typing')">
+        <div class="mico" style="background:var(--orangebg)">⌨️</div>
+        <div class="minfo"><div class="mname">Typing — Tự gõ</div><div class="mdesc">Nhìn nghĩa · gõ từ tiếng Anh · nhớ sâu nhất</div></div>
+        <span class="mbadge" style="background:var(--orangebg);color:var(--orange)">Khó nhất</span>
+      </div>
+      <div class="mode-card" onclick="startMode('fill')">
+        <div class="mico" style="background:var(--greenbg)">📝</div>
+        <div class="minfo"><div class="mname">Fill in the Blank</div><div class="mdesc">Điền từ vào câu ví dụ thật · học qua ngữ cảnh</div></div>
+        <span class="mbadge" style="background:var(--greenbg);color:var(--green)">Ngữ cảnh</span>
+      </div>
+      <div class="mode-card" onclick="startMode('listen')">
+        <div class="mico" style="background:var(--redbg)">🎧</div>
+        <div class="minfo"><div class="mname">Listening — Nghe đoán</div><div class="mdesc">Nghe phát âm · đoán từ · luyện tai nghe</div></div>
+        <span class="mbadge" style="background:var(--redbg);color:var(--red)">Tai nghe</span>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- ── STUDY ── -->
-<div class="screen" id="studyScreen">
-  <div class="app-header">
-    <button class="theme-toggle" onclick="goHome()" style="background:var(--card2)">← Về</button>
-    <div class="app-logo">✦ IELTS Vocab</div>
-    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtnStudy">🌙 Tối</button>
+<!-- ══ STUDY ══ -->
+<div class="screen" id="S-study">
+  <div class="hdr">
+    <button class="hbtn" onclick="goHome()">← Về</button>
+    <div class="logo" id="modeLabel">Flashcard</div>
+    <button class="hbtn" onclick="toggleTheme()" id="themeBtnS">🌙 Tối</button>
   </div>
-
-  <div class="study-content">
-    <!-- Progress -->
-    <div class="study-progress">
-      <div style="flex:1">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <span class="prog-topic" id="progTopic">Environment</span>
-          <span class="prog-fraction"><span id="progCurrent">1</span>/<span id="progTotal">20</span></span>
-        </div>
-        <div class="prog-bar-wrap"><div class="prog-bar-fill" id="progBar" style="width:0%"></div></div>
+  <div class="study-body">
+    <div class="prog-bar-c">
+      <div class="prog-row">
+        <span class="prog-label" id="progTopic">Environment</span>
+        <span class="prog-frac"><span id="progCur">1</span>/<span id="progTot">10</span></span>
       </div>
+      <div class="pbar"><div class="pbar-f" id="progFill" style="width:0%"></div></div>
     </div>
 
-    <!-- Card -->
-    <div class="card-container">
-      <div class="card-3d" id="theCard" onclick="flipCard()">
-        <div class="card-inner">
-          <div class="card-face front">
-            <span class="card-badge" id="cf-badge">Environment</span>
-            <div class="card-word" id="cf-word">mitigate</div>
-            <div class="card-phonetic" id="cf-phonetic">/ˈmɪt.ɪ.ɡeɪt/</div>
-            <div class="tap-hint">👆 Tap để xem nghĩa</div>
-          </div>
-          <div class="card-face back" id="cardBack">
-            <span class="pos-tag noun" id="cb-pos">verb</span>
-            <div class="back-meaning" id="cb-meaning">Definition</div>
-            <div class="back-viet" id="cb-viet">🇻🇳 Nghĩa tiếng Việt</div>
-            <div class="back-sentence" id="cb-sentence">Example sentence.</div>
-            <div class="colloc-section">
-              <div class="colloc-label">Collocations thường gặp</div>
-              <div class="colloc-tags" id="cb-colloc"></div>
+    <!-- FLASHCARD -->
+    <div id="mode-flash" style="display:none;flex:1;flex-direction:column;gap:11px">
+      <div class="card-wrap">
+        <div class="card3d" id="theCard" onclick="flipCard()">
+          <div class="card-inner">
+            <div class="cface front">
+              <span class="cbadge" id="cf-badge">Topic</span>
+              <div class="cword" id="cf-word">word</div>
+              <div class="cph" id="cf-ph">/phonetic/</div>
+              <button class="speak-btn" id="spkFront" onclick="event.stopPropagation();speak()">🔊 Nghe phát âm</button>
+              <div class="tap-hint">👆 Tap card để xem nghĩa</div>
+            </div>
+            <div class="cface back">
+              <span class="pos-tag" id="cb-pos">noun</span>
+              <div class="back-mean" id="cb-mean">meaning</div>
+              <button class="speak-btn" id="spkBack" onclick="speak()" style="align-self:flex-start">🔊 Nghe lại</button>
+              <div class="back-viet" id="cb-viet">🇻🇳 Vietnamese</div>
+              <div class="back-sent" id="cb-sent">Sentence.</div>
+              <div><div class="col-lbl">Collocations</div><div class="col-tags" id="cb-col"></div></div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- Rating -->
-    <div class="rating-section">
-      <div class="rating-hint" id="ratingHint">👆 Tap card để xem nghĩa trước</div>
-      <div class="rating-btns">
-        <button class="rate-btn r1 hidden-r" id="btn-r1" onclick="rateCard(1)"><span class="rate-emoji">😵</span>Quên</button>
-        <button class="rate-btn r2 hidden-r" id="btn-r2" onclick="rateCard(2)"><span class="rate-emoji">😕</span>Khó</button>
-        <button class="rate-btn r3 hidden-r" id="btn-r3" onclick="rateCard(3)"><span class="rate-emoji">🙂</span>Được</button>
-        <button class="rate-btn r4 hidden-r" id="btn-r4" onclick="rateCard(4)"><span class="rate-emoji">😄</span>Dễ</button>
+      <div class="rating-sec">
+        <div class="rate-hint" id="rateHint">Tap card để xem nghĩa trước</div>
+        <div class="rate-btns">
+          <button class="rb r1 hr" id="rb1" onclick="rateCard(1)"><span class="re">😵</span>Quên</button>
+          <button class="rb r2 hr" id="rb2" onclick="rateCard(2)"><span class="re">😕</span>Khó</button>
+          <button class="rb r3 hr" id="rb3" onclick="rateCard(3)"><span class="re">🙂</span>Được</button>
+          <button class="rb r4 hr" id="rb4" onclick="rateCard(4)"><span class="re">😄</span>Dễ</button>
+        </div>
       </div>
     </div>
+
+    <!-- QUIZ -->
+    <div id="mode-quiz" style="display:none;flex:1;flex-direction:column;gap:11px">
+      <div class="quiz-wrap">
+        <div class="quiz-q">
+          <div class="quiz-type" id="qz-type">Chọn đúng nghĩa của từ</div>
+          <div class="quiz-word" id="qz-word">word</div>
+          <div class="quiz-ph" id="qz-ph">/phonetic/</div>
+          <button class="speak-btn" style="margin-top:8px" onclick="speak()">🔊 Nghe</button>
+        </div>
+        <div class="quiz-opts" id="qz-opts"></div>
+        <div class="result-msg" id="qz-result"></div>
+        <button class="next-btn" id="qz-next" onclick="nextItem()">Tiếp theo →</button>
+      </div>
+    </div>
+
+    <!-- TYPING -->
+    <div id="mode-typing" style="display:none;flex:1;flex-direction:column;gap:11px">
+      <div class="typing-wrap">
+        <div class="typing-q">
+          <div class="quiz-type">Gõ từ tiếng Anh</div>
+          <div class="typing-viet" id="ty-viet">🇻🇳 Nghĩa</div>
+          <div class="typing-clue" id="ty-mean">English meaning</div>
+          <div class="typing-sent" id="ty-sent">Sentence with blank.</div>
+        </div>
+        <input type="text" class="type-input" id="ty-input" placeholder="Gõ từ vào đây..." autocorrect="off" autocapitalize="none" spellcheck="false" onkeydown="if(event.key==='Enter')checkTyping()">
+        <div class="type-answer" id="ty-answer"></div>
+        <div class="type-btns">
+          <button class="tb check" onclick="checkTyping()">✓ Kiểm tra</button>
+          <button class="tb skip" onclick="skipTyping()">Bỏ qua →</button>
+        </div>
+        <button class="next-btn" id="ty-next" onclick="nextItem()">Tiếp theo →</button>
+      </div>
+    </div>
+
+    <!-- FILL BLANK -->
+    <div id="mode-fill" style="display:none;flex:1;flex-direction:column;gap:11px">
+      <div class="fill-wrap">
+        <div class="fill-q">
+          <div class="fill-sent-lbl">Điền từ thích hợp vào chỗ trống</div>
+          <div class="fill-sent" id="fl-sent">Sentence here.</div>
+          <div class="fill-hint" id="fl-hint">Gợi ý: /phonetic/ — Vietnamese meaning</div>
+        </div>
+        <div class="fill-opts" id="fl-opts"></div>
+        <div class="result-msg" id="fl-result"></div>
+        <button class="next-btn" id="fl-next" onclick="nextItem()">Tiếp theo →</button>
+      </div>
+    </div>
+
+    <!-- LISTEN -->
+    <div id="mode-listen" style="display:none;flex:1;flex-direction:column;gap:11px">
+      <div class="listen-wrap">
+        <div class="listen-q">
+          <div class="quiz-type">Nghe và đoán từ tiếng Anh</div>
+          <button class="listen-btn" id="listenBtn" onclick="speakForListen()">🔊</button>
+          <div class="listen-hint">Bấm để nghe phát âm<br>Gõ từ bạn nghe được vào ô bên dưới</div>
+          <div class="back-viet" id="ls-viet" style="width:100%">🇻🇳 Gợi ý nghĩa</div>
+        </div>
+        <input type="text" class="listen-input" id="ls-input" placeholder="Từ bạn nghe được..." autocorrect="off" autocapitalize="none" spellcheck="false" onkeydown="if(event.key==='Enter')checkListen()">
+        <div class="listen-reveal" id="ls-reveal"></div>
+        <div class="type-btns">
+          <button class="tb check" onclick="checkListen()">✓ Kiểm tra</button>
+          <button class="tb skip" onclick="skipListen()">Nghe lại 🔄</button>
+        </div>
+        <button class="next-btn" id="ls-next" onclick="nextItem()">Tiếp theo →</button>
+      </div>
+    </div>
+
+    <!-- MATCH -->
+    <div id="mode-match" style="display:none;flex:1;flex-direction:column;gap:11px">
+      <!-- not used in this build, placeholder -->
+    </div>
+
   </div>
 </div>
 
-<!-- ── DONE ── -->
-<div class="screen" id="doneScreen">
-  <div class="app-header">
-    <div class="app-logo">✦ IELTS Vocab</div>
-    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtnDone">🌙 Tối</button>
+<!-- ══ DONE ══ -->
+<div class="screen" id="S-done">
+  <div class="hdr">
+    <div class="logo">✦ IELTS Vocab</div>
+    <button class="hbtn" onclick="toggleTheme()" id="themeBtnD">🌙 Tối</button>
   </div>
-  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;gap:16px;padding-bottom:calc(32px + env(safe-area-inset-bottom,0px))">
+  <div class="done-body">
     <div class="done-emoji">🎉</div>
-    <div class="done-title">Session hoàn thành!</div>
-    <div class="done-sub">Não bộ đang ghi nhớ các từ này. Nghỉ ngơi đi, ôn lại vào ngày mai!</div>
+    <div class="done-title">Xuất sắc!</div>
+    <div class="done-sub">Não bộ đang củng cố trí nhớ. Ôn lại vào ngày mai để nhớ lâu hơn!</div>
     <div class="done-stats">
-      <div class="done-stat"><div class="ds-n" style="color:var(--gold)" id="dsDone">0</div><div class="ds-l">Đã ôn</div></div>
-      <div class="done-stat"><div class="ds-n" style="color:var(--blue)" id="dsNew">0</div><div class="ds-l">Từ mới</div></div>
-      <div class="done-stat"><div class="ds-n" style="color:var(--green)" id="dsStreak">0</div><div class="ds-l">Streak</div></div>
+      <div class="dstat"><div class="dn" style="color:var(--gold)" id="dDone">0</div><div class="dl">Đã làm</div></div>
+      <div class="dstat"><div class="dn" style="color:var(--green)" id="dCorrect">0</div><div class="dl">Đúng</div></div>
+      <div class="dstat"><div class="dn" style="color:var(--blue)" id="dStreak">0</div><div class="dl">Streak</div></div>
     </div>
-    <button class="btn-primary" style="max-width:320px;width:100%" onclick="goHome()">← Về trang chủ</button>
+    <button class="btn-p" style="max-width:300px;width:100%" onclick="goHome()">← Về trang chủ</button>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-// ── VOCAB DB ──────────────────────────────────
-const VOCAB = [
+// ══ VOCAB ══════════════════════════════════
+const VOCAB=[
   {id:'env1',topic:'environment',word:'mitigate',pos:'verb',ph:'/ˈmɪt.ɪ.ɡeɪt/',en:'To make something less severe or serious',vi:'Giảm thiểu, làm nhẹ bớt',sentence:'Governments must <em>mitigate</em> the effects of climate change.',col:['mitigate risk','mitigate damage','mitigate impact']},
   {id:'env2',topic:'environment',word:'sustainable',pos:'adj',ph:'/səˈsteɪ.nə.bəl/',en:'Able to continue without damaging the environment',vi:'Bền vững, có thể duy trì lâu dài',sentence:'We need more <em>sustainable</em> energy sources.',col:['sustainable development','sustainable energy','sustainable farming']},
-  {id:'env3',topic:'environment',word:'emissions',pos:'noun',ph:'/ɪˈmɪʃ.ənz/',en:'Gases released into the air, especially from engines',vi:'Khí thải (từ xe cộ, nhà máy)',sentence:'Carbon <em>emissions</em> have risen dramatically since 1950.',col:['carbon emissions','reduce emissions','greenhouse emissions']},
+  {id:'env3',topic:'environment',word:'emissions',pos:'noun',ph:'/ɪˈmɪʃ.ənz/',en:'Gases released into the air, especially from engines',vi:'Khí thải từ xe cộ và nhà máy',sentence:'Carbon <em>emissions</em> have risen dramatically since 1950.',col:['carbon emissions','reduce emissions','greenhouse emissions']},
   {id:'env4',topic:'environment',word:'biodiversity',pos:'noun',ph:'/ˌbaɪ.oʊ.daɪˈvɜː.sɪ.ti/',en:'The variety of plant and animal life in a habitat',vi:'Đa dạng sinh học',sentence:'The rainforest is vital for global <em>biodiversity</em>.',col:['biodiversity loss','protect biodiversity','rich biodiversity']},
   {id:'env5',topic:'environment',word:'renewable',pos:'adj',ph:'/rɪˈnjuː.ə.bəl/',en:'Able to be replaced naturally and not used up',vi:'Có thể tái tạo được',sentence:'Solar and wind are key <em>renewable</em> energy sources.',col:['renewable energy','renewable resources','renewable fuel']},
   {id:'env6',topic:'environment',word:'deforestation',pos:'noun',ph:'/diːˌfɒr.ɪˈsteɪ.ʃən/',en:'The clearing of forests on a large scale',vi:'Nạn phá rừng',sentence:'<em>Deforestation</em> threatens thousands of species each year.',col:['rapid deforestation','combat deforestation','tropical deforestation']},
   {id:'env7',topic:'environment',word:'contaminate',pos:'verb',ph:'/kənˈtæm.ɪ.neɪt/',en:'To make something impure or harmful by pollution',vi:'Làm ô nhiễm, làm bẩn',sentence:'Industrial waste can <em>contaminate</em> drinking water.',col:['contaminate water','contaminate food','contaminate soil']},
-  {id:'env8',topic:'environment',word:'ecosystem',pos:'noun',ph:'/ˈiː.kəʊ.sɪs.təm/',en:'All living organisms in an area and how they interact',vi:'Hệ sinh thái',sentence:'Pollution disrupts the entire <em>ecosystem</em>.',col:['fragile ecosystem','ecosystem collapse','marine ecosystem']},
+  {id:'env8',topic:'environment',word:'ecosystem',pos:'noun',ph:'/ˈiː.kəʊ.sɪs.təm/',en:'All living things in an area and how they interact',vi:'Hệ sinh thái',sentence:'Pollution disrupts the entire <em>ecosystem</em>.',col:['fragile ecosystem','ecosystem collapse','marine ecosystem']},
   {id:'env9',topic:'environment',word:'conservation',pos:'noun',ph:'/ˌkɒn.səˈveɪ.ʃən/',en:'Protection and management of natural resources',vi:'Bảo tồn thiên nhiên',sentence:'Wildlife <em>conservation</em> requires international cooperation.',col:['wildlife conservation','conservation effort','nature conservation']},
   {id:'env10',topic:'environment',word:'habitat',pos:'noun',ph:'/ˈhæb.ɪ.tæt/',en:'The natural home or environment of an animal or plant',vi:'Môi trường sống, sinh cảnh',sentence:'Urban expansion destroys natural <em>habitats</em>.',col:['natural habitat','habitat loss','destroy habitat']},
-  {id:'env11',topic:'environment',word:'carbon footprint',pos:'noun',ph:'/ˈkɑː.bən ˈfʊt.prɪnt/',en:'Total greenhouse gas emissions caused by a person or organisation',vi:'Dấu chân carbon, lượng khí thải cá nhân',sentence:'You can reduce your <em>carbon footprint</em> by using public transport.',col:['reduce carbon footprint','large carbon footprint','calculate footprint']},
+  {id:'env11',topic:'environment',word:'carbon footprint',pos:'noun',ph:'/ˈkɑː.bən ˈfʊt.prɪnt/',en:'Total greenhouse gas emissions caused by a person',vi:'Dấu chân carbon — lượng khí thải cá nhân',sentence:'You can reduce your <em>carbon footprint</em> by using public transport.',col:['reduce carbon footprint','large carbon footprint','calculate footprint']},
   {id:'env12',topic:'environment',word:'pollutant',pos:'noun',ph:'/pəˈluː.tənt/',en:'A substance that pollutes air, water, or soil',vi:'Chất gây ô nhiễm',sentence:'Industrial <em>pollutants</em> have damaged the river ecosystem.',col:['chemical pollutant','air pollutant','toxic pollutant']},
   {id:'tec1',topic:'technology',word:'innovation',pos:'noun',ph:'/ˌɪn.əˈveɪ.ʃən/',en:'A new idea, method, or invention',vi:'Sự đổi mới, cải tiến',sentence:'Technological <em>innovation</em> is transforming every industry.',col:['technological innovation','drive innovation','foster innovation']},
   {id:'tec2',topic:'technology',word:'automation',pos:'noun',ph:'/ˌɔː.təˈmeɪ.ʃən/',en:'The use of machines instead of human workers',vi:'Tự động hóa',sentence:'<em>Automation</em> may replace millions of jobs in the future.',col:['factory automation','job automation','automation technology']},
@@ -456,12 +428,12 @@ const VOCAB = [
   {id:'tec4',topic:'technology',word:'algorithm',pos:'noun',ph:'/ˈæl.ɡə.rɪ.ðəm/',en:'A set of rules a computer follows to solve a problem',vi:'Thuật toán',sentence:'Social media <em>algorithms</em> decide what content you see.',col:['search algorithm','AI algorithm','algorithm bias']},
   {id:'tec5',topic:'technology',word:'cybersecurity',pos:'noun',ph:'/ˌsaɪ.bə.sɪˈkjʊə.rɪ.ti/',en:'Protection of computer systems from digital attack',vi:'An ninh mạng',sentence:'Companies invest heavily in <em>cybersecurity</em> to protect data.',col:['cybersecurity threat','cybersecurity breach','improve cybersecurity']},
   {id:'tec6',topic:'technology',word:'obsolete',pos:'adj',ph:'/ˈɒb.sə.liːt/',en:'No longer used or needed; out of date',vi:'Lỗi thời, không còn dùng nữa',sentence:'Physical maps have become <em>obsolete</em> due to smartphones.',col:['become obsolete','obsolete technology','render obsolete']},
-  {id:'tec7',topic:'technology',word:'artificial intelligence',pos:'noun',ph:'/ˌɑː.tɪˈfɪʃ.əl ɪnˈtel.ɪ.dʒəns/',en:'Computer systems able to perform tasks requiring human intelligence',vi:'Trí tuệ nhân tạo',sentence:'<em>Artificial intelligence</em> is revolutionising medical diagnosis.',col:['AI technology','develop AI','AI system']},
+  {id:'tec7',topic:'technology',word:'artificial intelligence',pos:'noun',ph:'/ˌɑː.tɪˈfɪʃ.əl ɪnˈtel.ɪ.dʒəns/',en:'Computer systems able to perform human-like intelligent tasks',vi:'Trí tuệ nhân tạo',sentence:'<em>Artificial intelligence</em> is revolutionising medical diagnosis.',col:['AI technology','develop AI','AI system']},
   {id:'tec8',topic:'technology',word:'digital divide',pos:'noun',ph:'/ˈdɪdʒ.ɪ.təl dɪˈvaɪd/',en:'The gap between those with and without internet access',vi:'Khoảng cách kỹ thuật số',sentence:'The <em>digital divide</em> leaves rural communities behind.',col:['bridge the divide','digital gap','widen the divide']},
   {id:'hlt1',topic:'health',word:'obesity',pos:'noun',ph:'/əʊˈbiː.sɪ.ti/',en:'The condition of being very overweight',vi:'Béo phì',sentence:'<em>Obesity</em> rates have tripled globally since 1975.',col:['childhood obesity','obesity epidemic','obesity rates']},
-  {id:'hlt2',topic:'health',word:'pandemic',pos:'noun',ph:'/pænˈdem.ɪk/',en:'A disease epidemic that spreads across countries or worldwide',vi:'Đại dịch',sentence:'The COVID-19 <em>pandemic</em> disrupted healthcare worldwide.',col:['global pandemic','pandemic response','pandemic outbreak']},
-  {id:'hlt3',topic:'health',word:'sedentary',pos:'adj',ph:'/ˈsed.ən.tri/',en:'Spending a lot of time sitting and being physically inactive',vi:'Ít vận động, hay ngồi một chỗ',sentence:'A <em>sedentary</em> lifestyle increases the risk of heart disease.',col:['sedentary lifestyle','sedentary work','sedentary behaviour']},
-  {id:'hlt4',topic:'health',word:'mortality',pos:'noun',ph:'/mɔːˈtæl.ɪ.ti/',en:'The number of deaths in a population over a time period',vi:'Tỷ lệ tử vong',sentence:'Child <em>mortality</em> has fallen significantly in developing countries.',col:['infant mortality','mortality rate','reduce mortality']},
+  {id:'hlt2',topic:'health',word:'pandemic',pos:'noun',ph:'/pænˈdem.ɪk/',en:'A disease that spreads across countries or worldwide',vi:'Đại dịch',sentence:'The COVID-19 <em>pandemic</em> disrupted healthcare worldwide.',col:['global pandemic','pandemic response','pandemic outbreak']},
+  {id:'hlt3',topic:'health',word:'sedentary',pos:'adj',ph:'/ˈsed.ən.tri/',en:'Spending a lot of time sitting; physically inactive',vi:'Ít vận động, hay ngồi một chỗ',sentence:'A <em>sedentary</em> lifestyle increases the risk of heart disease.',col:['sedentary lifestyle','sedentary work','sedentary behaviour']},
+  {id:'hlt4',topic:'health',word:'mortality',pos:'noun',ph:'/mɔːˈtæl.ɪ.ti/',en:'The number of deaths in a population over a period',vi:'Tỷ lệ tử vong',sentence:'Child <em>mortality</em> has fallen significantly in developing countries.',col:['infant mortality','mortality rate','reduce mortality']},
   {id:'hlt5',topic:'health',word:'prevalent',pos:'adj',ph:'/ˈprev.ə.lənt/',en:'Existing or happening commonly in a place',vi:'Phổ biến, lan rộng',sentence:'Diabetes is increasingly <em>prevalent</em> in urban populations.',col:['widely prevalent','prevalent disease','prevalent issue']},
   {id:'hlt6',topic:'health',word:'vaccination',pos:'noun',ph:'/ˌvæk.sɪˈneɪ.ʃən/',en:'Treatment with a vaccine to prevent disease',vi:'Tiêm chủng, tiêm vắc-xin',sentence:'Mass <em>vaccination</em> campaigns eradicated smallpox.',col:['vaccination campaign','mandatory vaccination','vaccination rate']},
   {id:'hlt7',topic:'health',word:'malnutrition',pos:'noun',ph:'/ˌmæl.njuːˈtrɪʃ.ən/',en:'Poor health caused by lack of food or wrong diet',vi:'Suy dinh dưỡng',sentence:'<em>Malnutrition</em> affects over 800 million people worldwide.',col:['severe malnutrition','childhood malnutrition','combat malnutrition']},
@@ -473,16 +445,15 @@ const VOCAB = [
   {id:'soc5',topic:'society',word:'migration',pos:'noun',ph:'/maɪˈɡreɪ.ʃən/',en:'Movement of people from one region or country to another',vi:'Di cư, di dân',sentence:'Economic <em>migration</em> shapes the demographics of many cities.',col:['mass migration','economic migration','migration patterns']},
   {id:'soc6',topic:'society',word:'empower',pos:'verb',ph:'/ɪmˈpaʊər/',en:'To give someone the power or authority to do something',vi:'Trao quyền, tăng cường năng lực',sentence:'Education can <em>empower</em> women in developing countries.',col:['empower women','empower communities','empower individuals']},
   {id:'soc7',topic:'society',word:'stereotype',pos:'noun',ph:'/ˈster.i.ə.taɪp/',en:'A fixed, oversimplified idea about a group of people',vi:'Định kiến, khuôn mẫu cố định',sentence:'Media often reinforces harmful <em>stereotypes</em> about gender.',col:['gender stereotype','challenge stereotypes','racial stereotype']},
-  {id:'soc8',topic:'society',word:'infrastructure',pos:'noun',ph:'/ˈɪn.frəˌstrʌk.tʃər/',en:'Basic systems and services that a country needs to function',vi:'Cơ sở hạ tầng',sentence:'Poor <em>infrastructure</em> hampers economic development.',col:['build infrastructure','transport infrastructure','digital infrastructure']},
+  {id:'soc8',topic:'society',word:'infrastructure',pos:'noun',ph:'/ˈɪn.frəˌstrʌk.tʃər/',en:'Basic systems and services a country needs to function',vi:'Cơ sở hạ tầng',sentence:'Poor <em>infrastructure</em> hampers economic development.',col:['build infrastructure','transport infrastructure','digital infrastructure']},
   {id:'edu1',topic:'education',word:'curriculum',pos:'noun',ph:'/kəˈrɪk.jə.ləm/',en:'The subjects studied at a school or university',vi:'Chương trình giảng dạy',sentence:'The school <em>curriculum</em> should include critical thinking skills.',col:['school curriculum','national curriculum','revise curriculum']},
   {id:'edu2',topic:'education',word:'literacy',pos:'noun',ph:'/ˈlɪt.ər.ə.si/',en:'The ability to read and write',vi:'Biết đọc biết viết, trình độ văn hóa',sentence:'Improving <em>literacy</em> rates is a priority for development.',col:['digital literacy','literacy rate','financial literacy']},
   {id:'edu3',topic:'education',word:'vocational',pos:'adj',ph:'/vəʊˈkeɪ.ʃən.əl/',en:'Relating to skills needed for a specific job or career',vi:'Dạy nghề, hướng nghiệp',sentence:'<em>Vocational</em> training provides practical skills for employment.',col:['vocational training','vocational school','vocational course']},
-  {id:'edu4',topic:'education',word:'critical thinking',pos:'noun',ph:'/ˈkrɪt.ɪ.kəl ˈθɪŋ.kɪŋ/',en:'The ability to analyse information objectively and make judgements',vi:'Tư duy phản biện',sentence:'Universities must foster <em>critical thinking</em> in students.',col:['develop critical thinking','critical thinking skills','apply critical thinking']},
-  {id:'edu5',topic:'education',word:'tuition',pos:'noun',ph:'/tjuːˈɪʃ.ən/',en:'Teaching, or the fee charged for education',vi:'Học phí; việc dạy kèm',sentence:'Rising <em>tuition</em> fees are pricing students out of university.',col:['tuition fees','private tuition','tuition costs']},
-  {id:'edu6',topic:'education',word:'collaborate',pos:'verb',ph:'/kəˈlæb.ə.reɪt/',en:'To work together with others to achieve a shared goal',vi:'Hợp tác, cộng tác',sentence:'Students learn better when they <em>collaborate</em> on projects.',col:['collaborate with','collaborate on','closely collaborate']},
+  {id:'edu4',topic:'education',word:'tuition',pos:'noun',ph:'/tjuːˈɪʃ.ən/',en:'Teaching, or the fee charged for education',vi:'Học phí; việc dạy kèm',sentence:'Rising <em>tuition</em> fees are pricing students out of university.',col:['tuition fees','private tuition','tuition costs']},
+  {id:'edu5',topic:'education',word:'collaborate',pos:'verb',ph:'/kəˈlæb.ə.reɪt/',en:'To work together with others to achieve a shared goal',vi:'Hợp tác, cộng tác',sentence:'Students learn better when they <em>collaborate</em> on projects.',col:['collaborate with','collaborate on','closely collaborate']},
   {id:'eco1',topic:'economy',word:'inflation',pos:'noun',ph:'/ɪnˈfleɪ.ʃən/',en:'A general rise in the price level of goods and services',vi:'Lạm phát',sentence:'High <em>inflation</em> erodes the purchasing power of consumers.',col:['rising inflation','control inflation','inflation rate']},
   {id:'eco2',topic:'economy',word:'recession',pos:'noun',ph:'/rɪˈseʃ.ən/',en:'A period of significant economic decline',vi:'Suy thoái kinh tế',sentence:'The 2008 financial crisis triggered a global <em>recession</em>.',col:['economic recession','deep recession','avoid recession']},
-  {id:'eco3',topic:'economy',word:'globalisation',pos:'noun',ph:'/ˌɡləʊ.bəl.aɪˈzeɪ.ʃən/',en:'The process of becoming worldwide in scope or application',vi:'Toàn cầu hóa',sentence:'<em>Globalisation</em> has connected markets across the world.',col:['economic globalisation','effects of globalisation','resist globalisation']},
+  {id:'eco3',topic:'economy',word:'globalisation',pos:'noun',ph:'/ˌɡləʊ.bəl.aɪˈzeɪ.ʃən/',en:'The process of becoming worldwide in scope',vi:'Toàn cầu hóa',sentence:'<em>Globalisation</em> has connected markets across the world.',col:['economic globalisation','effects of globalisation','resist globalisation']},
   {id:'eco4',topic:'economy',word:'entrepreneur',pos:'noun',ph:'/ˌɒn.trə.prəˈnɜː/',en:'Someone who starts a business, taking on financial risk',vi:'Doanh nhân, người khởi nghiệp',sentence:'Young <em>entrepreneurs</em> are driving innovation in tech.',col:['successful entrepreneur','social entrepreneur','aspiring entrepreneur']},
   {id:'eco5',topic:'economy',word:'subsidise',pos:'verb',ph:'/ˈsʌb.sɪ.daɪz/',en:'To support financially with government or public money',vi:'Trợ cấp, bao cấp',sentence:'Many governments <em>subsidise</em> renewable energy development.',col:['subsidise agriculture','heavily subsidised','government subsidy']},
   {id:'eco6',topic:'economy',word:'disparity',pos:'noun',ph:'/dɪˈspær.ɪ.ti/',en:'A great difference or inequality between things',vi:'Sự chênh lệch, bất cân đối',sentence:'There is a wide <em>disparity</em> in wages between men and women.',col:['wealth disparity','income disparity','regional disparity']},
@@ -495,196 +466,364 @@ const VOCAB = [
   {id:'aca2',topic:'academic',word:'empirical',pos:'adj',ph:'/emˈpɪr.ɪ.kəl/',en:'Based on observation or experiment rather than theory',vi:'Thực nghiệm, dựa trên bằng chứng thực tế',sentence:'The study provides <em>empirical</em> evidence for the theory.',col:['empirical evidence','empirical research','empirical data']},
   {id:'aca3',topic:'academic',word:'correlation',pos:'noun',ph:'/ˌkɒr.əˈleɪ.ʃən/',en:'A mutual relationship between two or more things',vi:'Mối tương quan, liên hệ',sentence:'There is a strong <em>correlation</em> between poverty and crime.',col:['strong correlation','positive correlation','negative correlation']},
   {id:'aca4',topic:'academic',word:'significant',pos:'adj',ph:'/sɪɡˈnɪf.ɪ.kənt/',en:'Important or large enough to have a noticeable effect',vi:'Đáng kể, có ý nghĩa quan trọng',sentence:'The results show a <em>significant</em> improvement in test scores.',col:['statistically significant','highly significant','significant impact']},
-  {id:'aca5',topic:'academic',word:'phenomenon',pos:'noun',ph:'/fɪˈnɒm.ɪ.nən/',en:'A fact or situation observed to exist or happen in the world',vi:'Hiện tượng',sentence:'Climate change is a global <em>phenomenon</em>.',col:['natural phenomenon','social phenomenon','rare phenomenon']},
+  {id:'aca5',topic:'academic',word:'phenomenon',pos:'noun',ph:'/fɪˈnɒm.ɪ.nən/',en:'A fact or situation observed to exist or happen',vi:'Hiện tượng',sentence:'Climate change is a global <em>phenomenon</em>.',col:['natural phenomenon','social phenomenon','rare phenomenon']},
   {id:'aca6',topic:'academic',word:'inevitable',pos:'adj',ph:'/ɪnˈev.ɪ.tə.bəl/',en:'Certain to happen and impossible to prevent',vi:'Không thể tránh khỏi, tất yếu',sentence:'Conflict seemed <em>inevitable</em> given the political tension.',col:['almost inevitable','inevitable consequence','seem inevitable']},
   {id:'aca7',topic:'academic',word:'consequently',pos:'adv',ph:'/ˈkɒn.sɪ.kwənt.li/',en:'As a result; therefore',vi:'Do đó, kết quả là',sentence:'He failed to study; <em>consequently</em>, he failed the exam.',col:['as a consequence','direct consequence','consequently lead to']},
   {id:'aca8',topic:'academic',word:'furthermore',pos:'adv',ph:'/ˌfɜː.ðəˈmɔː/',en:'In addition to what has already been said',vi:'Hơn nữa, thêm vào đó',sentence:'The drug is effective; <em>furthermore</em>, it has few side effects.',col:['furthermore suggest','furthermore argue','furthermore demonstrate']},
 ];
 
-const TOPICS = {
-  environment:{icon:'🌿',name:'Environment'},
-  technology: {icon:'💻',name:'Technology'},
-  health:     {icon:'🩺',name:'Health'},
-  society:    {icon:'🏙️',name:'Society'},
-  education:  {icon:'📚',name:'Education'},
-  economy:    {icon:'💰',name:'Economy'},
-  government: {icon:'🏛️',name:'Government'},
-  academic:   {icon:'🎓',name:'Academic'},
-};
+const TOPICS={environment:{icon:'🌿',name:'Environment'},technology:{icon:'💻',name:'Technology'},health:{icon:'🩺',name:'Health'},society:{icon:'🏙️',name:'Society'},education:{icon:'📚',name:'Education'},economy:{icon:'💰',name:'Economy'},government:{icon:'🏛️',name:'Government'},academic:{icon:'🎓',name:'Academic'}};
+const MODE_NAMES={flash:'🃏 Flashcard',quiz:'🎯 Quiz',typing:'⌨️ Typing',fill:'📝 Fill Blank',listen:'🎧 Listening'};
 
-// ── STATE ─────────────────────────────────────
-let srsData = load('ielts_srs_v3') || {};
-let streakData = load('ielts_streak_v3') || {streak:0,last:'',days:0};
-let session=[], sessionIdx=0, sessionNew=0, isFlipped=false;
-let selectedTopics = new Set(Object.keys(TOPICS));
-let isDark = load('ielts_theme') === 'dark';
+// ══ STATE ═════════════════════════════════
+let srs=ld('srs')||{}, streak=ld('strk')||{streak:0,last:'',days:0};
+let selTopics=new Set(Object.keys(TOPICS));
+let isDark=ld('thm')==='dark';
+let session=[],sidx=0,scorrect=0,smode='flash',currentV=null,currentWord='';
 
-function load(k){try{return JSON.parse(localStorage.getItem(k));}catch{return null;}}
-function save(k,v){localStorage.setItem(k,JSON.stringify(v));}
+function ld(k){try{return JSON.parse(localStorage.getItem('ilv4_'+k));}catch{return null;}}
+function sv(k,v){localStorage.setItem('ilv4_'+k,JSON.stringify(v));}
 
-// ── THEME ─────────────────────────────────────
+// ══ THEME ══
 function applyTheme(){
-  document.body.className = isDark ? 'dark' : 'light';
-  const label = isDark ? '☀️ Sáng' : '🌙 Tối';
-  ['themeBtn','themeBtnStudy','themeBtnDone'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el) el.textContent=label;
-  });
-  save('ielts_theme', isDark?'dark':'light');
+  document.body.className=isDark?'dark':'light';
+  const lbl=isDark?'☀️ Sáng':'🌙 Tối';
+  ['themeBtn','themeBtnS','themeBtnD'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=lbl;});
+  sv('thm',isDark?'dark':'light');
 }
-function toggleTheme(){ isDark=!isDark; applyTheme(); }
+function toggleTheme(){isDark=!isDark;applyTheme();}
 
-// ── SRS ───────────────────────────────────────
-function getCard(id){ return srsData[id]||{interval:0,nextReview:0,ease:2.5,reps:0}; }
-function isNew(id){ return !srsData[id]; }
-function isDue(id){ return getCard(id).nextReview <= Date.now(); }
-
-function updateSRS(id, r){
-  let {interval,ease,reps} = getCard(id);
+// ══ SRS ══
+function getC(id){return srs[id]||{interval:0,nextReview:0,ease:2.5,reps:0};}
+function isNew(id){return !srs[id];}
+function isDue(id){return getC(id).nextReview<=Date.now();}
+function updateSRS(id,r){
+  let{interval,ease,reps}=getC(id);
   if(r===1){interval=0;reps=0;ease=Math.max(1.3,ease-.2);}
   else if(r===2){interval=Math.max(1,Math.round(interval*.8));ease=Math.max(1.3,ease-.15);}
   else if(r===3){interval=reps===0?1:reps===1?3:Math.round(interval*ease);reps++;}
   else{interval=reps===0?1:reps===1?4:Math.round(interval*ease*1.3);ease=Math.min(3,ease+.1);reps++;}
-  srsData[id]={interval:Math.max(1,interval),nextReview:Date.now()+Math.max(1,interval)*86400000,ease,reps,lastSeen:Date.now()};
-  save('ielts_srs_v3',srsData);
+  srs[id]={interval:Math.max(1,interval),nextReview:Date.now()+Math.max(1,interval)*86400000,ease,reps,lastSeen:Date.now()};
+  sv('srs',srs);
 }
 
-// ── STREAK ────────────────────────────────────
+// ══ STREAK ══
 function markToday(){
   const today=new Date().toDateString();
-  if(streakData.last===today) return;
-  const yesterday=new Date(Date.now()-86400000).toDateString();
-  streakData.streak=streakData.last===yesterday?streakData.streak+1:1;
-  streakData.last=today; streakData.days=(streakData.days||0)+1;
-  save('ielts_streak_v3',streakData);
+  if(streak.last===today)return;
+  const yest=new Date(Date.now()-86400000).toDateString();
+  streak.streak=streak.last===yest?streak.streak+1:1;
+  streak.last=today;streak.days=(streak.days||0)+1;
+  sv('strk',streak);
 }
-function studiedToday(){ return streakData.last===new Date().toDateString(); }
+function studiedToday(){return streak.last===new Date().toDateString();}
 
-// ── HOME ──────────────────────────────────────
+// ══ HOME ══
 function renderHome(){
-  const learned=Object.keys(srsData).length;
+  const learned=Object.keys(srs).length;
   const due=VOCAB.filter(v=>!isNew(v.id)&&isDue(v.id)).length;
-  document.getElementById('statTotal').textContent=learned;
-  document.getElementById('statDue').textContent=due;
-  document.getElementById('statStreak').textContent=streakData.streak||0;
-  document.getElementById('streakDays').textContent=(streakData.streak||0)+' ngày streak';
-  document.getElementById('streakToday').textContent=studiedToday()?'✓ Đã học':'Chưa học';
-
+  document.getElementById('hLearned').textContent=learned;
+  document.getElementById('hDue').textContent=due;
+  document.getElementById('hStreak').textContent=streak.streak||0;
+  document.getElementById('hStreakDays').textContent=(streak.streak||0)+' ngày streak';
+  document.getElementById('hStreakBadge').textContent=studiedToday()?'✓ Đã học hôm nay':'Chưa học';
   const grid=document.getElementById('topicGrid');
   grid.innerHTML='';
   Object.entries(TOPICS).forEach(([key,t])=>{
-    const total=VOCAB.filter(v=>v.topic===key).length;
+    const tot=VOCAB.filter(v=>v.topic===key).length;
     const done=VOCAB.filter(v=>v.topic===key&&!isNew(v.id)).length;
-    const pct=Math.round(done/total*100);
-    const chip=document.createElement('div');
-    chip.className='topic-chip'+(selectedTopics.has(key)?' active':'');
-    chip.innerHTML=`<span class="tc-icon">${t.icon}</span><div class="tc-name">${t.name}</div><div class="tc-count">${done}/${total} từ</div><div class="tc-prog"><div class="tc-prog-fill" style="width:${pct}%"></div></div>`;
-    chip.onclick=()=>{
-      if(selectedTopics.has(key)){if(selectedTopics.size>1)selectedTopics.delete(key);}
-      else selectedTopics.add(key);
-      renderHome();
-    };
-    grid.appendChild(chip);
+    const pct=Math.round(done/tot*100);
+    const c=document.createElement('div');
+    c.className='tchip'+(selTopics.has(key)?' on':'');
+    c.innerHTML=`<span class="ti">${t.icon}</span><div class="tn">${t.name}</div><div class="tc">${done}/${tot} từ</div><div class="tprog"><div class="tprog-f" style="width:${pct}%"></div></div>`;
+    c.onclick=()=>{if(selTopics.has(key)){if(selTopics.size>1)selTopics.delete(key);}else selTopics.add(key);renderHome();};
+    grid.appendChild(c);
   });
 }
 
-// ── SESSION ───────────────────────────────────
-function startSession(newOnly){
-  const pool=VOCAB.filter(v=>selectedTopics.has(v.topic));
-  let cards;
-  if(newOnly){
-    cards=pool.filter(v=>isNew(v.id));
-  } else {
-    const due=pool.filter(v=>!isNew(v.id)&&isDue(v.id));
-    const newW=pool.filter(v=>isNew(v.id)).slice(0,5);
-    cards=[...due,...newW];
-    if(!cards.length) cards=pool.filter(v=>isNew(v.id)).slice(0,10);
-  }
-  if(!cards.length){showToast('Không có từ nào cần ôn! 🎉');return;}
-  session=shuffle(cards).slice(0,20);
-  sessionIdx=0; sessionNew=0;
-  showScreen('studyScreen');
-  loadCard(0);
+// ══ START MODE ══
+function startMode(mode){
+  const pool=VOCAB.filter(v=>selTopics.has(v.topic));
+  const due=pool.filter(v=>!isNew(v.id)&&isDue(v.id));
+  const newW=pool.filter(v=>isNew(v.id)).slice(0,5);
+  let cards=[...due,...newW];
+  if(!cards.length) cards=pool.filter(v=>isNew(v.id)).slice(0,10);
+  if(!cards.length){showToast('Không có từ nào! Chọn thêm chủ đề 👆');return;}
+  session=shuffle(cards).slice(0,15);
+  sidx=0;scorrect=0;smode=mode;
+  document.getElementById('modeLabel').textContent=MODE_NAMES[mode]||mode;
+  showScreen('S-study');
+  ['flash','quiz','typing','fill','listen'].forEach(m=>{
+    const el=document.getElementById('mode-'+m);
+    if(el) el.style.display='none';
+  });
+  const mel=document.getElementById('mode-'+mode);
+  if(mel) mel.style.display='flex';
+  loadItem(0);
 }
 
-// ── CARD ──────────────────────────────────────
-function loadCard(idx){
+function loadItem(idx){
   if(idx>=session.length){showDone();return;}
-  isFlipped=false;
-  const v=session[idx];
+  currentV=session[idx];
+  currentWord=currentV.word;
+  updateProg(idx);
+  if(smode==='flash') loadFlash(currentV);
+  else if(smode==='quiz') loadQuiz(currentV);
+  else if(smode==='typing') loadTyping(currentV);
+  else if(smode==='fill') loadFill(currentV);
+  else if(smode==='listen') loadListen(currentV);
+}
+
+function updateProg(idx){
+  document.getElementById('progTopic').textContent=(TOPICS[currentV.topic]?.icon||'')+' '+(TOPICS[currentV.topic]?.name||'');
+  document.getElementById('progCur').textContent=idx+1;
+  document.getElementById('progTot').textContent=session.length;
+  document.getElementById('progFill').style.width=(idx/session.length*100)+'%';
+}
+
+function nextItem(){sidx++;loadItem(sidx);}
+
+// ══ FLASHCARD ══
+function loadFlash(v){
   document.getElementById('theCard').classList.remove('flipped');
-  document.getElementById('progTopic').textContent=(TOPICS[v.topic]?.icon||'')+' '+(TOPICS[v.topic]?.name||v.topic);
-  document.getElementById('progCurrent').textContent=idx+1;
-  document.getElementById('progTotal').textContent=session.length;
-  document.getElementById('progBar').style.width=(idx/session.length*100)+'%';
-
   const badge=document.getElementById('cf-badge');
-  badge.textContent=isNew(v.id)?'✨ NEW — '+v.topic:(TOPICS[v.topic]?.name||v.topic);
-  badge.className='card-badge'+(isNew(v.id)?' new-badge':'');
-
+  badge.textContent=isNew(v.id)?'✨ NEW':TOPICS[v.topic]?.name||v.topic;
+  badge.className='cbadge'+(isNew(v.id)?' newb':'');
   document.getElementById('cf-word').textContent=v.word;
-  document.getElementById('cf-phonetic').textContent=v.ph||'';
-
-  const posEl=document.getElementById('cb-pos');
-  posEl.textContent=v.pos; posEl.className='pos-tag '+v.pos;
-  document.getElementById('cb-meaning').textContent=v.en;
+  document.getElementById('cf-ph').textContent=v.ph||'';
+  const pos=document.getElementById('cb-pos');
+  pos.textContent=v.pos; pos.className='pos-tag '+v.pos;
+  document.getElementById('cb-mean').textContent=v.en;
   document.getElementById('cb-viet').textContent='🇻🇳 '+v.vi;
-  document.getElementById('cb-sentence').innerHTML='"'+v.sentence+'"';
-  document.getElementById('cb-colloc').innerHTML=v.col.map(c=>`<span class="colloc-tag">${c}</span>`).join('');
-
-  hideRating();
-  document.getElementById('ratingHint').textContent='👆 Tap card để xem nghĩa trước';
+  document.getElementById('cb-sent').innerHTML='"'+v.sentence+'"';
+  document.getElementById('cb-col').innerHTML=v.col.map(c=>`<span class="col-tag">${c}</span>`).join('');
+  [1,2,3,4].forEach(n=>document.getElementById('rb'+n).classList.add('hr'));
+  document.getElementById('rateHint').textContent='👆 Tap card để xem nghĩa trước';
+  resetSpeak();
 }
-
 function flipCard(){
-  if(isFlipped) return;
-  isFlipped=true;
+  if(document.getElementById('theCard').classList.contains('flipped')) return;
   document.getElementById('theCard').classList.add('flipped');
-  showRating();
-  document.getElementById('ratingHint').textContent='Bạn nhớ từ này mức nào?';
+  [1,2,3,4].forEach(n=>document.getElementById('rb'+n).classList.remove('hr'));
+  document.getElementById('rateHint').textContent='Bạn nhớ từ này mức nào?';
 }
-
 function rateCard(r){
-  const v=session[sessionIdx];
-  if(isNew(v.id)) sessionNew++;
-  updateSRS(v.id,r);
-  if(r===1) session.push(v);
-  sessionIdx++;
-  loadCard(sessionIdx);
+  if(isNew(currentV.id)&&r>=3) scorrect++;
+  else if(!isNew(currentV.id)) scorrect+=(r>=3?1:0);
+  updateSRS(currentV.id,r);
+  if(r===1) session.push(currentV);
+  sidx++;loadItem(sidx);
 }
 
-function hideRating(){[1,2,3,4].forEach(n=>document.getElementById('btn-r'+n).classList.add('hidden-r'));}
-function showRating(){[1,2,3,4].forEach(n=>document.getElementById('btn-r'+n).classList.remove('hidden-r'));}
+// ══ QUIZ ══
+function loadQuiz(v){
+  document.getElementById('qz-word').textContent=v.word;
+  document.getElementById('qz-ph').textContent=v.ph||'';
+  document.getElementById('qz-result').className='result-msg';
+  document.getElementById('qz-result').textContent='';
+  document.getElementById('qz-next').className='next-btn';
+  // 4 options: correct + 3 random wrong
+  const wrong=shuffle(VOCAB.filter(x=>x.id!==v.id)).slice(0,3);
+  const opts=shuffle([v,...wrong]);
+  const cont=document.getElementById('qz-opts');
+  cont.innerHTML='';
+  opts.forEach(opt=>{
+    const btn=document.createElement('button');
+    btn.className='qopt';
+    btn.textContent=opt.en;
+    btn.onclick=()=>answerQuiz(btn,opt.id===v.id,v.id,cont);
+    cont.appendChild(btn);
+  });
+}
+function answerQuiz(btn,correct,correctId,cont){
+  cont.querySelectorAll('.qopt').forEach(b=>b.disabled=true);
+  if(correct){
+    btn.classList.add('correct');
+    showResult('qz-result','✓ Đúng rồi! '+currentV.vi,true);
+    scorrect++;
+  } else {
+    btn.classList.add('wrong');
+    cont.querySelectorAll('.qopt').forEach(b=>{
+      if(b.textContent===VOCAB.find(x=>x.id===correctId).en) b.classList.add('show-correct');
+    });
+    showResult('qz-result','✗ Sai! Đáp án: '+currentV.vi,false);
+  }
+  updateSRS(currentV.id,correct?3:1);
+  document.getElementById('qz-next').className='next-btn show';
+}
 
+// ══ TYPING ══
+function loadTyping(v){
+  document.getElementById('ty-viet').textContent='🇻🇳 '+v.vi;
+  document.getElementById('ty-mean').textContent=v.en;
+  // sentence with blank
+  const blank='<span style="background:var(--bluebg);color:var(--blue);font-weight:800;padding:1px 6px;border-radius:4px">_____</span>';
+  const sentHtml=v.sentence.replace(/<em>(.*?)<\/em>/g,blank);
+  document.getElementById('ty-sent').innerHTML='"'+sentHtml+'"';
+  const inp=document.getElementById('ty-input');
+  inp.value='';inp.className='type-input';inp.disabled=false;
+  document.getElementById('ty-answer').style.display='none';
+  document.getElementById('ty-next').className='next-btn';
+  setTimeout(()=>inp.focus(),300);
+}
+function checkTyping(){
+  const inp=document.getElementById('ty-input');
+  const val=inp.value.trim().toLowerCase();
+  const ans=currentV.word.toLowerCase();
+  inp.disabled=true;
+  if(val===ans){
+    inp.className='type-input ok';
+    showResult('ty-answer','✓ Chính xác! 🎉',true);
+    document.getElementById('ty-answer').style.display='block';
+    scorrect++;updateSRS(currentV.id,4);
+  } else {
+    inp.className='type-input bad';
+    const ansEl=document.getElementById('ty-answer');
+    ansEl.style.display='block';
+    ansEl.style.color='var(--red)';
+    ansEl.textContent='✗ Sai! Đáp án đúng: '+currentV.word;
+    updateSRS(currentV.id,1);
+  }
+  document.getElementById('ty-next').className='next-btn show';
+}
+function skipTyping(){
+  const ansEl=document.getElementById('ty-answer');
+  ansEl.style.display='block';ansEl.style.color='var(--muted)';
+  ansEl.textContent='Đáp án: '+currentV.word;
+  document.getElementById('ty-input').disabled=true;
+  document.getElementById('ty-next').className='next-btn show';
+}
+
+// ══ FILL BLANK ══
+function loadFill(v){
+  // Strip em tags to get plain sentence, replace with ___
+  const rawSent=v.sentence.replace(/<em>(.*?)<\/em>/g,'<span class="fill-blank">___</span>');
+  document.getElementById('fl-sent').innerHTML=rawSent;
+  document.getElementById('fl-hint').textContent='💡 '+v.ph+' — '+v.vi;
+  document.getElementById('fl-result').className='result-msg';
+  document.getElementById('fl-result').textContent='';
+  document.getElementById('fl-next').className='next-btn';
+  // 4 options
+  const wrong=shuffle(VOCAB.filter(x=>x.id!==v.id)).slice(0,3);
+  const opts=shuffle([v,...wrong]);
+  const cont=document.getElementById('fl-opts');
+  cont.innerHTML='';
+  opts.forEach(opt=>{
+    const btn=document.createElement('button');
+    btn.className='fopt';
+    btn.textContent=opt.word;
+    btn.onclick=()=>answerFill(btn,opt.id===v.id,v.word,cont);
+    cont.appendChild(btn);
+  });
+}
+function answerFill(btn,correct,correctWord,cont){
+  cont.querySelectorAll('.fopt').forEach(b=>b.disabled=true);
+  if(correct){
+    btn.classList.add('correct');
+    // Show complete sentence
+    document.getElementById('fl-sent').innerHTML=currentV.sentence.replace(/<em>(.*?)<\/em>/g,'<span style="color:var(--green);font-weight:800;background:var(--greenbg);padding:1px 5px;border-radius:4px">$1</span>');
+    showResult('fl-result','✓ Đúng! "'+currentV.word+'" — '+currentV.vi,true);
+    scorrect++;
+  } else {
+    btn.classList.add('wrong');
+    cont.querySelectorAll('.fopt').forEach(b=>{if(b.textContent===correctWord)b.classList.add('show-correct');});
+    showResult('fl-result','✗ Sai! Đáp án: "'+correctWord+'"',false);
+  }
+  updateSRS(currentV.id,correct?3:1);
+  document.getElementById('fl-next').className='next-btn show';
+}
+
+// ══ LISTEN ══
+function loadListen(v){
+  document.getElementById('ls-viet').textContent='🇻🇳 Gợi ý: '+v.vi;
+  const inp=document.getElementById('ls-input');
+  inp.value='';inp.className='listen-input';inp.disabled=false;
+  document.getElementById('ls-reveal').style.display='none';
+  document.getElementById('ls-reveal').textContent='';
+  document.getElementById('ls-next').className='next-btn';
+  document.getElementById('listenBtn').classList.remove('playing');
+  setTimeout(()=>speakForListen(),400);
+}
+function speakForListen(){
+  speak(true);
+  document.getElementById('listenBtn').classList.add('playing');
+  setTimeout(()=>document.getElementById('listenBtn').classList.remove('playing'),1800);
+}
+function checkListen(){
+  const inp=document.getElementById('ls-input');
+  const val=inp.value.trim().toLowerCase().replace(/[^a-z\s]/g,'');
+  const ans=currentV.word.toLowerCase();
+  inp.disabled=true;
+  const rev=document.getElementById('ls-reveal');
+  if(val===ans||val===ans.replace(/ /g,'')){
+    inp.className='listen-input ok';
+    rev.style.display='block';rev.style.color='var(--green)';
+    rev.textContent='✓ Đúng! '+currentV.word+' — '+currentV.vi;
+    scorrect++;updateSRS(currentV.id,4);
+  } else {
+    inp.className='listen-input bad';
+    rev.style.display='block';rev.style.color='var(--red)';
+    rev.textContent='✗ Sai! Đáp án: '+currentV.word+' ('+currentV.ph+')';
+    updateSRS(currentV.id,1);
+  }
+  document.getElementById('ls-next').className='next-btn show';
+}
+function skipListen(){
+  speakForListen();
+}
+
+// ══ TTS ══
+let currentWord2='';
+function speak(slow=false){
+  const w=currentWord;
+  if(!w) return;
+  window.speechSynthesis.cancel();
+  const utt=new SpeechSynthesisUtterance(w);
+  utt.lang='en-GB'; utt.rate=slow?0.7:0.85; utt.pitch=1;
+  const voices=window.speechSynthesis.getVoices();
+  const v=voices.find(v=>v.lang==='en-GB')||voices.find(v=>v.lang.startsWith('en'));
+  if(v) utt.voice=v;
+  resetSpeak();
+  [document.getElementById('spkFront'),document.getElementById('spkBack')].forEach(b=>{if(b){b.classList.add('sp');b.textContent='🔊 Đang phát...';}});
+  utt.onend=utt.onerror=resetSpeak;
+  window.speechSynthesis.speak(utt);
+}
+function resetSpeak(){
+  const sf=document.getElementById('spkFront'),sb=document.getElementById('spkBack');
+  if(sf){sf.classList.remove('sp');sf.textContent='🔊 Nghe phát âm';}
+  if(sb){sb.classList.remove('sp');sb.textContent='🔊 Nghe lại';}
+}
+
+// ══ DONE ══
 function showDone(){
   markToday();
-  document.getElementById('dsDone').textContent=Math.min(sessionIdx,session.length);
-  document.getElementById('dsNew').textContent=sessionNew;
-  document.getElementById('dsStreak').textContent=streakData.streak||0;
-  showScreen('doneScreen');
+  document.getElementById('dDone').textContent=session.length;
+  document.getElementById('dCorrect').textContent=scorrect;
+  document.getElementById('dStreak').textContent=streak.streak||0;
+  showScreen('S-done');
   renderHome();
 }
 
-// ── NAV ───────────────────────────────────────
+// ══ HELPERS ══
+function showResult(elId,msg,ok){
+  const el=document.getElementById(elId);
+  el.textContent=msg;
+  el.className='result-msg show '+(ok?'ok':'bad');
+}
 function showScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('active');});
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
 }
-function goHome(){showScreen('homeScreen');renderHome();}
-
-// ── TOAST ─────────────────────────────────────
-function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2200);
-}
-
-// ── UTILS ─────────────────────────────────────
+function goHome(){window.speechSynthesis.cancel();showScreen('S-home');renderHome();}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
 
-// ── INIT ──────────────────────────────────────
+// ══ INIT ══
 applyTheme();
 renderHome();
+window.speechSynthesis.getVoices();
+if(window.speechSynthesis.onvoiceschanged!==undefined) window.speechSynthesis.onvoiceschanged=()=>window.speechSynthesis.getVoices();
 </script>
 </body>
 </html>
