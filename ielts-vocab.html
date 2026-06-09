@@ -4,454 +4,583 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>IELTS Vocab</title>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Lora:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
 <style>
-:root {
+/* ── THEMES ── */
+body.light {
+  --bg: #fafbff;
+  --surface: #ffffff;
+  --card: #ffffff;
+  --card2: #f8f9fd;
+  --border: #e2e8f0;
+  --text: #0f1419;
+  --muted: #7c8ba3;
+  --dim: #5a6680;
+  --shadow: 0 2px 12px rgba(45,111,232,.08);
+  --shadow2: 0 4px 20px rgba(45,111,232,.12);
+  --gold: #d97706;
+  --gold-bg: #fef3c7;
+  --blue: #2563eb;
+  --blue-bg: #dbeafe;
+  --green: #16a34a;
+  --green-bg: #dcfce7;
+  --orange: #ea580c;
+  --orange-bg: #fed7aa;
+  --red: #dc2626;
+  --red-bg: #fee2e2;
+  --purple: #7c3aed;
+  --purple-bg: #ede9fe;
+  --header-bg: #ffffff;
+  --topic-active-bg: #dbeafe;
+  --topic-active-border: #2563eb;
+  --topic-active-text: #2563eb;
+}
+body.dark {
   --bg: #0b0d12;
   --surface: #13161e;
   --card: #1a1e28;
+  --card2: #141820;
   --border: #252a38;
   --text: #e8e3da;
   --muted: #5a6070;
   --dim: #8a8f9a;
+  --shadow: 0 2px 16px rgba(0,0,0,.3);
+  --shadow2: 0 4px 24px rgba(0,0,0,.4);
   --gold: #d4a843;
-  --gold2: #f0c96a;
+  --gold-bg: rgba(212,168,67,.12);
   --blue: #4a8fe8;
+  --blue-bg: rgba(74,143,232,.12);
   --green: #52c47a;
+  --green-bg: rgba(82,196,122,.12);
   --orange: #e8843a;
+  --orange-bg: rgba(232,132,58,.12);
   --red: #e05050;
+  --red-bg: rgba(224,80,80,.12);
   --purple: #9b7de8;
-  --r: 14px;
-  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --purple-bg: rgba(155,125,232,.12);
+  --header-bg: #13161e;
+  --topic-active-bg: rgba(74,143,232,.15);
+  --topic-active-border: #4a8fe8;
+  --topic-active-text: #4a8fe8;
 }
+
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;font-weight:300;}
+html{height:100%;}
+body{
+  min-height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Nunito',sans-serif;
+  font-weight:400;
+  transition:background .25s,color .25s;
+}
 
 /* ── SCREENS ── */
-.screen{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;transition:opacity .25s,transform .25s;}
-.screen.hidden{opacity:0;pointer-events:none;transform:translateY(16px);}
+.screen{display:none;flex-direction:column;min-height:100vh;}
+.screen.active{display:flex;}
 
-/* ── HOME ── */
-#homeScreen{padding:0;background:var(--bg);}
-.home-hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;gap:8px;text-align:center;}
-.hero-icon{font-size:3.2rem;margin-bottom:4px;filter:drop-shadow(0 0 24px rgba(212,168,67,.4));}
-.hero-title{font-family:'Lora',serif;font-size:2rem;font-weight:600;line-height:1.2;color:var(--gold);}
-.hero-sub{font-size:.82rem;color:var(--muted);line-height:1.6;max-width:240px;margin-top:6px;}
-.stats-row{display:flex;gap:10px;margin-top:20px;width:100%;}
-.stat-box{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 10px;text-align:center;}
-.stat-n{font-size:1.5rem;font-weight:700;color:var(--gold);font-family:'Lora',serif;}
-.stat-l{font-size:.68rem;color:var(--muted);margin-top:3px;text-transform:uppercase;letter-spacing:.07em;}
-.home-actions{padding:0 24px 24px;display:flex;flex-direction:column;gap:10px;padding-bottom:calc(24px + var(--safe-bottom));}
-.btn-primary{background:var(--gold);color:#000;border:none;border-radius:12px;padding:15px;font-size:.95rem;font-weight:600;font-family:'Sora',sans-serif;cursor:pointer;width:100%;letter-spacing:.02em;transition:all .15s;active:scale(.97);}
-.btn-primary:active{transform:scale(.97);background:var(--gold2);}
-.btn-secondary{background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:12px;padding:13px;font-size:.88rem;font-family:'Sora',sans-serif;cursor:pointer;width:100%;transition:all .15s;}
-.btn-secondary:active{transform:scale(.97);}
-.topic-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 24px 16px;}
-.topic-chip{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:.75rem;cursor:pointer;transition:all .15s;text-align:left;}
-.topic-chip.active{border-color:var(--gold);background:rgba(212,168,67,.1);color:var(--gold);}
-.topic-chip:active{transform:scale(.96);}
-.topic-chip .tc-icon{font-size:1.1rem;display:block;margin-bottom:4px;}
-.topic-chip .tc-name{font-weight:400;color:var(--text);font-size:.73rem;}
-.topic-chip.active .tc-name{color:var(--gold);}
-.topic-chip .tc-count{font-size:.65rem;color:var(--muted);margin-top:2px;}
-.section-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);padding:16px 24px 8px;}
+/* ── HEADER ── */
+.app-header{
+  position:sticky;top:0;z-index:50;
+  background:var(--header-bg);
+  border-bottom:1px solid var(--border);
+  padding:14px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+  box-shadow:var(--shadow);
+}
+.app-logo{font-family:'Lora',serif;font-size:1.15rem;font-weight:600;color:var(--gold);}
+.app-logo span{color:var(--text);font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:600;margin-left:6px;opacity:.6;}
+.theme-toggle{
+  background:var(--card2);border:1px solid var(--border);
+  border-radius:20px;padding:5px 12px;
+  font-size:.8rem;cursor:pointer;color:var(--text);
+  font-family:'Nunito',sans-serif;font-weight:700;
+  transition:all .2s;
+}
+.theme-toggle:active{transform:scale(.94);}
+
+/* ── HOME SCREEN ── */
+#homeScreen{background:var(--bg);}
+.home-content{flex:1;padding:20px;display:flex;flex-direction:column;gap:16px;padding-bottom:calc(20px + env(safe-area-inset-bottom,0px));}
+
+/* hero */
+.hero-card{
+  background:linear-gradient(135deg,var(--blue) 0%,var(--purple) 100%);
+  border-radius:20px;
+  padding:24px 22px;
+  color:#fff;
+  box-shadow:var(--shadow2);
+}
+.hero-title{font-family:'Lora',serif;font-size:1.5rem;font-weight:600;line-height:1.2;margin-bottom:6px;}
+.hero-sub{font-size:.8rem;opacity:.85;line-height:1.6;}
+.stats-row{display:flex;gap:8px;margin-top:16px;}
+.stat-box{flex:1;background:rgba(255,255,255,.18);border-radius:12px;padding:10px 8px;text-align:center;backdrop-filter:blur(4px);}
+.stat-n{font-size:1.4rem;font-weight:800;}
+.stat-l{font-size:.62rem;opacity:.8;text-transform:uppercase;letter-spacing:.06em;margin-top:1px;}
 
 /* streak */
-.streak-bar{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin:0 24px 12px;}
-.streak-fire{font-size:1.1rem;}
+.streak-card{
+  background:var(--gold-bg);
+  border:1.5px solid var(--gold);
+  border-radius:16px;padding:14px 16px;
+  display:flex;align-items:center;gap:12px;
+}
+.streak-fire{font-size:1.6rem;}
 .streak-info{flex:1;}
-.streak-days{font-size:.9rem;font-weight:600;color:var(--gold);}
-.streak-sub{font-size:.68rem;color:var(--muted);}
-.streak-today{font-size:.7rem;background:rgba(212,168,67,.15);color:var(--gold);padding:3px 8px;border-radius:20px;border:1px solid rgba(212,168,67,.3);}
+.streak-days{font-size:.95rem;font-weight:800;color:var(--gold);}
+.streak-sub{font-size:.72rem;color:var(--muted);margin-top:2px;}
+.streak-badge{
+  background:var(--gold);color:#fff;
+  font-size:.65rem;font-weight:700;
+  padding:4px 9px;border-radius:20px;
+  white-space:nowrap;
+}
+
+/* section */
+.section-title{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
+
+/* topic grid */
+.topic-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.topic-chip{
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:14px;padding:14px 12px;
+  cursor:pointer;transition:all .18s;
+  box-shadow:var(--shadow);
+}
+.topic-chip.active{
+  border-color:var(--topic-active-border);
+  background:var(--topic-active-bg);
+}
+.topic-chip:active{transform:scale(.95);}
+.tc-icon{font-size:1.4rem;display:block;margin-bottom:6px;}
+.tc-name{font-size:.82rem;font-weight:700;color:var(--text);}
+.topic-chip.active .tc-name{color:var(--topic-active-text);}
+.tc-count{font-size:.65rem;color:var(--muted);margin-top:3px;}
+.tc-prog{height:3px;background:var(--border);border-radius:2px;margin-top:8px;overflow:hidden;}
+.tc-prog-fill{height:100%;border-radius:2px;background:var(--topic-active-border);transition:width .3s;}
+
+/* buttons */
+.btn-primary{
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  color:#fff;border:none;border-radius:14px;
+  padding:16px;font-size:1rem;font-weight:800;
+  font-family:'Nunito',sans-serif;cursor:pointer;width:100%;
+  box-shadow:0 4px 16px rgba(37,99,235,.35);
+  transition:all .15s;
+}
+.btn-primary:active{transform:scale(.97);opacity:.9;}
+.btn-secondary{
+  background:var(--surface);color:var(--text);
+  border:1.5px solid var(--border);border-radius:14px;
+  padding:14px;font-size:.9rem;font-weight:700;
+  font-family:'Nunito',sans-serif;cursor:pointer;width:100%;
+  transition:all .15s;
+}
+.btn-secondary:active{transform:scale(.97);}
 
 /* ── STUDY SCREEN ── */
 #studyScreen{background:var(--bg);}
-.study-header{display:flex;align-items:center;gap:12px;padding:16px 20px 10px;flex-shrink:0;}
-.back-btn{background:var(--surface);border:1px solid var(--border);border-radius:8px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.9rem;color:var(--dim);transition:all .15s;}
-.back-btn:active{transform:scale(.9);}
-.progress-info{flex:1;}
-.prog-label{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;}
-.prog-count{font-size:.88rem;font-weight:600;}
-.prog-bar-wrap{height:4px;background:var(--border);border-radius:2px;margin-top:5px;}
-.prog-bar-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .4s ease;}
-.session-done-badge{background:rgba(82,196,122,.15);color:var(--green);border:1px solid rgba(82,196,122,.3);border-radius:6px;padding:3px 10px;font-size:.7rem;font-weight:600;}
+.study-content{flex:1;display:flex;flex-direction:column;padding:16px;gap:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));}
 
-/* card area */
-.card-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 20px;perspective:1200px;}
-.card-3d{width:100%;max-width:360px;position:relative;cursor:pointer;}
-.card-face{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px 28px;min-height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;transition:transform .45s cubic-bezier(.4,0,.2,1);backface-visibility:hidden;-webkit-backface-visibility:hidden;}
-.card-face.back{position:absolute;top:0;left:0;right:0;background:var(--card);border:1px solid var(--border);border-radius:20px;transform:rotateY(180deg);padding:28px 24px;min-height:260px;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;text-align:left;gap:10px;}
-.card-3d.flipped .card-face.front{transform:rotateY(-180deg);}
-.card-3d.flipped .card-face.back{transform:rotateY(0deg);}
-.card-topic{font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);padding:4px 10px;background:var(--surface);border-radius:20px;border:1px solid var(--border);}
-.card-word{font-family:'Lora',serif;font-size:2rem;font-weight:600;color:var(--text);letter-spacing:.02em;line-height:1.2;}
-.card-phonetic{font-size:.8rem;color:var(--muted);font-style:italic;letter-spacing:.04em;}
-.card-pos{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:20px;margin-bottom:4px;}
-.card-pos.noun{background:rgba(74,143,232,.15);color:var(--blue);border:1px solid rgba(74,143,232,.3);}
-.card-pos.verb{background:rgba(82,196,122,.15);color:var(--green);border:1px solid rgba(82,196,122,.3);}
-.card-pos.adj{background:rgba(155,125,232,.15);color:var(--purple);border:1px solid rgba(155,125,232,.3);}
-.card-pos.adv{background:rgba(232,132,58,.15);color:var(--orange);border:1px solid rgba(232,132,58,.3);}
-.card-meaning{font-size:1rem;font-weight:400;color:var(--text);line-height:1.5;width:100%;}
-.card-viet{font-size:.85rem;color:var(--gold);font-weight:400;width:100%;}
-.card-sentence{font-family:'Lora',serif;font-style:italic;font-size:.82rem;color:var(--dim);line-height:1.6;border-left:2px solid var(--gold);padding-left:10px;margin-top:2px;width:100%;}
-.card-sentence em{color:var(--gold2);font-style:normal;font-weight:600;}
-.card-collocations{width:100%;}
-.colloc-label{font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:5px;}
+.study-progress{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:12px 16px;
+  display:flex;align-items:center;gap:12px;
+}
+.prog-topic{font-size:.82rem;font-weight:700;flex:1;}
+.prog-fraction{font-size:.78rem;color:var(--muted);font-weight:600;white-space:nowrap;}
+.prog-bar-wrap{height:5px;background:var(--border);border-radius:3px;margin-top:8px;overflow:hidden;}
+.prog-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));border-radius:3px;transition:width .4s ease;}
+
+/* flashcard */
+.card-container{flex:1;display:flex;align-items:center;justify-content:center;min-height:280px;}
+.card-3d{width:100%;perspective:1200px;cursor:pointer;}
+.card-inner{
+  position:relative;width:100%;min-height:280px;
+  transition:transform .45s cubic-bezier(.4,0,.2,1);
+  transform-style:preserve-3d;
+}
+.card-3d.flipped .card-inner{transform:rotateY(180deg);}
+.card-face{
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:20px;
+  padding:28px 24px;
+  box-shadow:var(--shadow2);
+}
+.card-face.back{
+  position:absolute;top:0;left:0;right:0;
+  transform:rotateY(180deg);
+  display:flex;flex-direction:column;
+  gap:10px;
+}
+.card-face.front{
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;gap:10px;min-height:280px;
+}
+.card-badge{
+  font-size:.65rem;font-weight:800;text-transform:uppercase;
+  letter-spacing:.1em;padding:4px 12px;border-radius:20px;
+  background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue);
+}
+.card-badge.new-badge{background:var(--green-bg);color:var(--green);border-color:var(--green);}
+.card-word{font-family:'Lora',serif;font-size:2.2rem;font-weight:600;line-height:1.2;color:var(--text);}
+.card-phonetic{font-size:.82rem;color:var(--muted);font-style:italic;}
+.tap-hint{font-size:.72rem;color:var(--muted);margin-top:4px;}
+
+/* back side */
+.pos-tag{
+  display:inline-flex;align-items:center;
+  font-size:.68rem;font-weight:800;text-transform:uppercase;
+  letter-spacing:.08em;padding:3px 10px;border-radius:20px;align-self:flex-start;
+}
+.pos-tag.noun{background:var(--blue-bg);color:var(--blue);}
+.pos-tag.verb{background:var(--green-bg);color:var(--green);}
+.pos-tag.adj{background:var(--purple-bg);color:var(--purple);}
+.pos-tag.adv{background:var(--orange-bg);color:var(--orange);}
+
+.back-meaning{font-size:1rem;font-weight:700;line-height:1.5;color:var(--text);}
+.back-viet{
+  background:var(--gold-bg);border:1px solid var(--gold);
+  border-radius:10px;padding:8px 12px;
+  font-size:.85rem;font-weight:700;color:var(--gold);
+}
+.back-sentence{
+  background:var(--card2);border-left:3px solid var(--blue);
+  border-radius:0 10px 10px 0;
+  padding:10px 12px;
+  font-family:'Lora',serif;font-style:italic;
+  font-size:.83rem;line-height:1.65;color:var(--dim);
+}
+.back-sentence em{color:var(--blue);font-style:normal;font-weight:700;}
+.colloc-section{}
+.colloc-label{font-size:.63rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:6px;}
 .colloc-tags{display:flex;flex-wrap:wrap;gap:5px;}
-.colloc-tag{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:3px 9px;font-size:.72rem;color:var(--dim);}
-.tap-hint{font-size:.7rem;color:var(--muted);margin-top:8px;}
-.card-new-badge{position:absolute;top:14px;right:14px;background:var(--gold);color:#000;font-size:.6rem;font-weight:700;padding:3px 8px;border-radius:20px;letter-spacing:.06em;}
+.colloc-tag{
+  background:var(--card2);border:1px solid var(--border);
+  border-radius:8px;padding:4px 10px;
+  font-size:.72rem;color:var(--dim);font-weight:600;
+}
 
-/* rating buttons */
-.rating-area{padding:14px 20px;padding-bottom:calc(14px + var(--safe-bottom));flex-shrink:0;}
-.rating-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);text-align:center;margin-bottom:10px;}
+/* rating */
+.rating-section{flex-shrink:0;}
+.rating-hint{font-size:.7rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.08em;text-align:center;margin-bottom:10px;}
 .rating-btns{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;}
-.rate-btn{border:none;border-radius:12px;padding:12px 6px;font-size:.72rem;font-weight:600;font-family:'Sora',sans-serif;cursor:pointer;transition:all .15s;line-height:1.3;letter-spacing:.02em;}
-.rate-btn:active{transform:scale(.93);}
-.rate-btn .rate-emoji{font-size:1.1rem;display:block;margin-bottom:3px;}
-.rate-btn.r1{background:rgba(224,80,80,.15);color:var(--red);border:1px solid rgba(224,80,80,.3);}
-.rate-btn.r2{background:rgba(232,132,58,.15);color:var(--orange);border:1px solid rgba(232,132,58,.3);}
-.rate-btn.r3{background:rgba(74,143,232,.15);color:var(--blue);border:1px solid rgba(74,143,232,.3);}
-.rate-btn.r4{background:rgba(82,196,122,.15);color:var(--green);border:1px solid rgba(82,196,122,.3);}
-.rate-btn.hidden-rating{opacity:0;pointer-events:none;}
+.rate-btn{
+  border:none;border-radius:14px;padding:12px 6px;
+  font-size:.72rem;font-weight:800;
+  font-family:'Nunito',sans-serif;cursor:pointer;
+  transition:all .15s;line-height:1.3;
+}
+.rate-btn:active{transform:scale(.92);}
+.rate-emoji{font-size:1.2rem;display:block;margin-bottom:3px;}
+.rate-btn.r1{background:var(--red-bg);color:var(--red);}
+.rate-btn.r2{background:var(--orange-bg);color:var(--orange);}
+.rate-btn.r3{background:var(--blue-bg);color:var(--blue);}
+.rate-btn.r4{background:var(--green-bg);color:var(--green);}
+.rate-btn.hidden-r{opacity:0;pointer-events:none;}
 
 /* ── DONE SCREEN ── */
-#doneScreen{background:var(--bg);align-items:center;justify-content:center;padding:32px 24px;}
-.done-icon{font-size:3.5rem;margin-bottom:8px;}
+#doneScreen{
+  background:var(--bg);
+  align-items:center;justify-content:center;
+  padding:32px 24px;gap:16px;
+  padding-bottom:calc(32px + env(safe-area-inset-bottom,0px));
+}
+.done-emoji{font-size:4rem;}
 .done-title{font-family:'Lora',serif;font-size:1.6rem;font-weight:600;color:var(--gold);text-align:center;}
-.done-sub{font-size:.85rem;color:var(--muted);text-align:center;line-height:1.6;margin-top:8px;max-width:260px;}
-.done-stats{display:flex;gap:12px;margin:24px 0;width:100%;}
-.done-stat{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 10px;text-align:center;}
-.done-stat .ds-n{font-size:1.6rem;font-weight:700;font-family:'Lora',serif;}
-.done-stat .ds-l{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-top:3px;}
+.done-sub{font-size:.85rem;color:var(--muted);text-align:center;line-height:1.6;max-width:260px;}
+.done-stats{display:flex;gap:10px;width:100%;max-width:340px;}
+.done-stat{
+  flex:1;background:var(--surface);border:1.5px solid var(--border);
+  border-radius:16px;padding:16px 10px;text-align:center;
+  box-shadow:var(--shadow);
+}
+.ds-n{font-size:1.7rem;font-weight:800;}
+.ds-l{font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-top:3px;}
 
 /* ── TOAST ── */
-.toast{position:fixed;bottom:calc(90px + var(--safe-bottom));left:50%;transform:translateX(-50%) translateY(20px);background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 18px;font-size:.78rem;color:var(--text);white-space:nowrap;opacity:0;transition:all .3s;pointer-events:none;z-index:100;}
+.toast{
+  position:fixed;bottom:80px;left:50%;
+  transform:translateX(-50%) translateY(10px);
+  background:var(--text);color:var(--bg);
+  border-radius:12px;padding:10px 18px;
+  font-size:.8rem;font-weight:700;
+  white-space:nowrap;opacity:0;
+  transition:all .25s;pointer-events:none;z-index:999;
+}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-
-/* ── SWIPE VISUAL ── */
-.card-area{user-select:none;}
-.swipe-overlay{position:absolute;inset:0;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:700;opacity:0;transition:opacity .15s;pointer-events:none;border:3px solid transparent;}
-.swipe-overlay.know{background:rgba(82,196,122,.12);border-color:rgba(82,196,122,.5);color:var(--green);}
-.swipe-overlay.nope{background:rgba(224,80,80,.12);border-color:rgba(224,80,80,.5);color:var(--red);}
-
 </style>
 </head>
-<body>
+<body class="light">
 
-<!-- ── HOME SCREEN ── -->
-<div class="screen" id="homeScreen">
-  <div class="home-hero">
-    <div class="hero-icon">✦</div>
-    <div class="hero-title">IELTS Vocab</div>
-    <div class="hero-sub">Học từ vựng theo khoa học não bộ — nhớ sâu, không quên</div>
-
-    <div class="stats-row">
-      <div class="stat-box">
-        <div class="stat-n" id="statTotal">0</div>
-        <div class="stat-l">Đã học</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-n" id="statDue">0</div>
-        <div class="stat-l">Cần ôn</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-n" id="statStreak">0</div>
-        <div class="stat-l">Ngày streak</div>
-      </div>
-    </div>
+<!-- ── HOME ── -->
+<div class="screen active" id="homeScreen">
+  <div class="app-header">
+    <div class="app-logo">✦ IELTS Vocab <span>Beginner → Band 7</span></div>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 Tối</button>
   </div>
 
-  <div class="streak-bar" id="streakBar">
-    <span class="streak-fire">🔥</span>
-    <div class="streak-info">
-      <div class="streak-days" id="streakDays">Streak: 0 ngày</div>
-      <div class="streak-sub">Học mỗi ngày để không mất streak</div>
+  <div class="home-content">
+    <!-- Hero -->
+    <div class="hero-card">
+      <div class="hero-title">Học từ vựng IELTS</div>
+      <div class="hero-sub">Spaced Repetition · Active Recall · Context Learning<br>Nhớ sâu, không quên nhờ khoa học não bộ</div>
+      <div class="stats-row">
+        <div class="stat-box"><div class="stat-n" id="statTotal">0</div><div class="stat-l">Đã học</div></div>
+        <div class="stat-box"><div class="stat-n" id="statDue">0</div><div class="stat-l">Cần ôn</div></div>
+        <div class="stat-box"><div class="stat-n" id="statStreak">0</div><div class="stat-l">Streak</div></div>
+      </div>
     </div>
-    <span class="streak-today" id="streakToday">Hôm nay: chưa học</span>
-  </div>
 
-  <div class="section-label">Chọn chủ đề</div>
-  <div class="topic-grid" id="topicGrid"></div>
+    <!-- Streak -->
+    <div class="streak-card">
+      <span class="streak-fire">🔥</span>
+      <div class="streak-info">
+        <div class="streak-days" id="streakDays">0 ngày streak</div>
+        <div class="streak-sub">Học mỗi ngày để không mất streak</div>
+      </div>
+      <span class="streak-badge" id="streakToday">Chưa học</span>
+    </div>
 
-  <div class="home-actions">
-    <button class="btn-primary" onclick="startSession()">▶ Bắt đầu ôn tập</button>
-    <button class="btn-secondary" onclick="startNewWords()">＋ Học từ mới</button>
+    <!-- Topics -->
+    <div class="section-title">Chọn chủ đề học</div>
+    <div class="topic-grid" id="topicGrid"></div>
+
+    <!-- Actions -->
+    <button class="btn-primary" onclick="startSession(false)">▶ Bắt đầu ôn tập</button>
+    <button class="btn-secondary" onclick="startSession(true)">＋ Học từ mới</button>
   </div>
 </div>
 
-<!-- ── STUDY SCREEN ── -->
-<div class="screen hidden" id="studyScreen">
-  <div class="study-header">
-    <div class="back-btn" onclick="goHome()">←</div>
-    <div class="progress-info">
-      <div class="prog-label" id="progTopic">Session</div>
-      <div class="prog-count"><span id="progCurrent">1</span> / <span id="progTotal">20</span></div>
-      <div class="prog-bar-wrap"><div class="prog-bar-fill" id="progBar" style="width:0%"></div></div>
-    </div>
+<!-- ── STUDY ── -->
+<div class="screen" id="studyScreen">
+  <div class="app-header">
+    <button class="theme-toggle" onclick="goHome()" style="background:var(--card2)">← Về</button>
+    <div class="app-logo">✦ IELTS Vocab</div>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtnStudy">🌙 Tối</button>
   </div>
 
-  <div class="card-area" id="cardArea">
-    <div class="card-3d" id="theCard" onclick="flipCard()">
-      <div class="card-face front" id="cardFront">
-        <div class="card-topic" id="cf-topic">Environment</div>
-        <div class="card-word" id="cf-word">mitigate</div>
-        <div class="card-phonetic" id="cf-phonetic">/ˈmɪt.ɪ.ɡeɪt/</div>
-        <div class="tap-hint">Tap để xem nghĩa →</div>
+  <div class="study-content">
+    <!-- Progress -->
+    <div class="study-progress">
+      <div style="flex:1">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span class="prog-topic" id="progTopic">Environment</span>
+          <span class="prog-fraction"><span id="progCurrent">1</span>/<span id="progTotal">20</span></span>
+        </div>
+        <div class="prog-bar-wrap"><div class="prog-bar-fill" id="progBar" style="width:0%"></div></div>
       </div>
-      <div class="card-face back" id="cardBack">
-        <span class="card-pos noun" id="cb-pos">noun</span>
-        <div class="card-meaning" id="cb-meaning">Definition here</div>
-        <div class="card-viet" id="cb-viet">🇻🇳 Nghĩa tiếng Việt</div>
-        <div class="card-sentence" id="cb-sentence">Example sentence here.</div>
-        <div class="card-collocations">
-          <div class="colloc-label">Collocations</div>
-          <div class="colloc-tags" id="cb-colloc"></div>
+    </div>
+
+    <!-- Card -->
+    <div class="card-container">
+      <div class="card-3d" id="theCard" onclick="flipCard()">
+        <div class="card-inner">
+          <div class="card-face front">
+            <span class="card-badge" id="cf-badge">Environment</span>
+            <div class="card-word" id="cf-word">mitigate</div>
+            <div class="card-phonetic" id="cf-phonetic">/ˈmɪt.ɪ.ɡeɪt/</div>
+            <div class="tap-hint">👆 Tap để xem nghĩa</div>
+          </div>
+          <div class="card-face back" id="cardBack">
+            <span class="pos-tag noun" id="cb-pos">verb</span>
+            <div class="back-meaning" id="cb-meaning">Definition</div>
+            <div class="back-viet" id="cb-viet">🇻🇳 Nghĩa tiếng Việt</div>
+            <div class="back-sentence" id="cb-sentence">Example sentence.</div>
+            <div class="colloc-section">
+              <div class="colloc-label">Collocations thường gặp</div>
+              <div class="colloc-tags" id="cb-colloc"></div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="card-new-badge" id="newBadge" style="display:none">NEW</div>
     </div>
-  </div>
 
-  <div class="rating-area">
-    <div class="rating-label" id="ratingLabel">Tap card to reveal first</div>
-    <div class="rating-btns">
-      <button class="rate-btn r1 hidden-rating" id="btn-r1" onclick="rateCard(1)"><span class="rate-emoji">😵</span>Quên</button>
-      <button class="rate-btn r2 hidden-rating" id="btn-r2" onclick="rateCard(2)"><span class="rate-emoji">😕</span>Khó</button>
-      <button class="rate-btn r3 hidden-rating" id="btn-r3" onclick="rateCard(3)"><span class="rate-emoji">🙂</span>Được</button>
-      <button class="rate-btn r4 hidden-rating" id="btn-r4" onclick="rateCard(4)"><span class="rate-emoji">😄</span>Dễ</button>
+    <!-- Rating -->
+    <div class="rating-section">
+      <div class="rating-hint" id="ratingHint">👆 Tap card để xem nghĩa trước</div>
+      <div class="rating-btns">
+        <button class="rate-btn r1 hidden-r" id="btn-r1" onclick="rateCard(1)"><span class="rate-emoji">😵</span>Quên</button>
+        <button class="rate-btn r2 hidden-r" id="btn-r2" onclick="rateCard(2)"><span class="rate-emoji">😕</span>Khó</button>
+        <button class="rate-btn r3 hidden-r" id="btn-r3" onclick="rateCard(3)"><span class="rate-emoji">🙂</span>Được</button>
+        <button class="rate-btn r4 hidden-r" id="btn-r4" onclick="rateCard(4)"><span class="rate-emoji">😄</span>Dễ</button>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- ── DONE SCREEN ── -->
-<div class="screen hidden" id="doneScreen">
-  <div class="done-icon" id="doneIcon">🎉</div>
-  <div class="done-title" id="doneTitle">Session hoàn thành!</div>
-  <div class="done-sub" id="doneSub">Não bộ đang ghi nhớ các từ này trong lúc bạn nghỉ.</div>
-  <div class="done-stats">
-    <div class="done-stat"><div class="ds-n" id="dsDone" style="color:var(--gold)">0</div><div class="ds-l">Đã ôn</div></div>
-    <div class="done-stat"><div class="ds-n" id="dsNew" style="color:var(--blue)">0</div><div class="ds-l">Từ mới</div></div>
-    <div class="done-stat"><div class="ds-n" id="dsStreak" style="color:var(--green)">0</div><div class="ds-l">Streak</div></div>
+<!-- ── DONE ── -->
+<div class="screen" id="doneScreen">
+  <div class="app-header">
+    <div class="app-logo">✦ IELTS Vocab</div>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtnDone">🌙 Tối</button>
   </div>
-  <button class="btn-primary" style="width:100%;max-width:320px" onclick="goHome()">← Về trang chủ</button>
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;gap:16px;padding-bottom:calc(32px + env(safe-area-inset-bottom,0px))">
+    <div class="done-emoji">🎉</div>
+    <div class="done-title">Session hoàn thành!</div>
+    <div class="done-sub">Não bộ đang ghi nhớ các từ này. Nghỉ ngơi đi, ôn lại vào ngày mai!</div>
+    <div class="done-stats">
+      <div class="done-stat"><div class="ds-n" style="color:var(--gold)" id="dsDone">0</div><div class="ds-l">Đã ôn</div></div>
+      <div class="done-stat"><div class="ds-n" style="color:var(--blue)" id="dsNew">0</div><div class="ds-l">Từ mới</div></div>
+      <div class="done-stat"><div class="ds-n" style="color:var(--green)" id="dsStreak">0</div><div class="ds-l">Streak</div></div>
+    </div>
+    <button class="btn-primary" style="max-width:320px;width:100%" onclick="goHome()">← Về trang chủ</button>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-// ─────────────────────────────────────────────
-// VOCAB DATABASE — 200 từ IELTS cốt lõi
-// ─────────────────────────────────────────────
+// ── VOCAB DB ──────────────────────────────────
 const VOCAB = [
-  // ENVIRONMENT
   {id:'env1',topic:'environment',word:'mitigate',pos:'verb',ph:'/ˈmɪt.ɪ.ɡeɪt/',en:'To make something less severe or serious',vi:'Giảm thiểu, làm nhẹ bớt',sentence:'Governments must <em>mitigate</em> the effects of climate change.',col:['mitigate risk','mitigate damage','mitigate impact']},
   {id:'env2',topic:'environment',word:'sustainable',pos:'adj',ph:'/səˈsteɪ.nə.bəl/',en:'Able to continue without damaging the environment',vi:'Bền vững, có thể duy trì lâu dài',sentence:'We need more <em>sustainable</em> energy sources.',col:['sustainable development','sustainable energy','sustainable farming']},
-  {id:'env3',topic:'environment',word:'emissions',pos:'noun',ph:'/ɪˈmɪʃ.ənz/',en:'Gases released into the air, especially from engines',vi:'Khí thải (đặc biệt từ xe cộ, nhà máy)',sentence:'Carbon <em>emissions</em> have risen dramatically since 1950.',col:['carbon emissions','reduce emissions','greenhouse emissions']},
+  {id:'env3',topic:'environment',word:'emissions',pos:'noun',ph:'/ɪˈmɪʃ.ənz/',en:'Gases released into the air, especially from engines',vi:'Khí thải (từ xe cộ, nhà máy)',sentence:'Carbon <em>emissions</em> have risen dramatically since 1950.',col:['carbon emissions','reduce emissions','greenhouse emissions']},
   {id:'env4',topic:'environment',word:'biodiversity',pos:'noun',ph:'/ˌbaɪ.oʊ.daɪˈvɜː.sɪ.ti/',en:'The variety of plant and animal life in a habitat',vi:'Đa dạng sinh học',sentence:'The rainforest is vital for global <em>biodiversity</em>.',col:['biodiversity loss','protect biodiversity','rich biodiversity']},
   {id:'env5',topic:'environment',word:'renewable',pos:'adj',ph:'/rɪˈnjuː.ə.bəl/',en:'Able to be replaced naturally and not used up',vi:'Có thể tái tạo được',sentence:'Solar and wind are key <em>renewable</em> energy sources.',col:['renewable energy','renewable resources','renewable fuel']},
   {id:'env6',topic:'environment',word:'deforestation',pos:'noun',ph:'/diːˌfɒr.ɪˈsteɪ.ʃən/',en:'The clearing of forests on a large scale',vi:'Nạn phá rừng',sentence:'<em>Deforestation</em> threatens thousands of species each year.',col:['rapid deforestation','combat deforestation','tropical deforestation']},
-  {id:'env7',topic:'environment',word:'contaminate',pos:'verb',ph:'/kənˈtæm.ɪ.neɪt/',en:'To make something impure or harmful',vi:'Làm ô nhiễm, làm bẩn',sentence:'Industrial waste can <em>contaminate</em> drinking water.',col:['contaminate water','contaminate food','contaminate soil']},
+  {id:'env7',topic:'environment',word:'contaminate',pos:'verb',ph:'/kənˈtæm.ɪ.neɪt/',en:'To make something impure or harmful by pollution',vi:'Làm ô nhiễm, làm bẩn',sentence:'Industrial waste can <em>contaminate</em> drinking water.',col:['contaminate water','contaminate food','contaminate soil']},
   {id:'env8',topic:'environment',word:'ecosystem',pos:'noun',ph:'/ˈiː.kəʊ.sɪs.təm/',en:'All living organisms in an area and how they interact',vi:'Hệ sinh thái',sentence:'Pollution disrupts the entire <em>ecosystem</em>.',col:['fragile ecosystem','ecosystem collapse','marine ecosystem']},
-
-  // TECHNOLOGY
+  {id:'env9',topic:'environment',word:'conservation',pos:'noun',ph:'/ˌkɒn.səˈveɪ.ʃən/',en:'Protection and management of natural resources',vi:'Bảo tồn thiên nhiên',sentence:'Wildlife <em>conservation</em> requires international cooperation.',col:['wildlife conservation','conservation effort','nature conservation']},
+  {id:'env10',topic:'environment',word:'habitat',pos:'noun',ph:'/ˈhæb.ɪ.tæt/',en:'The natural home or environment of an animal or plant',vi:'Môi trường sống, sinh cảnh',sentence:'Urban expansion destroys natural <em>habitats</em>.',col:['natural habitat','habitat loss','destroy habitat']},
+  {id:'env11',topic:'environment',word:'carbon footprint',pos:'noun',ph:'/ˈkɑː.bən ˈfʊt.prɪnt/',en:'Total greenhouse gas emissions caused by a person or organisation',vi:'Dấu chân carbon, lượng khí thải cá nhân',sentence:'You can reduce your <em>carbon footprint</em> by using public transport.',col:['reduce carbon footprint','large carbon footprint','calculate footprint']},
+  {id:'env12',topic:'environment',word:'pollutant',pos:'noun',ph:'/pəˈluː.tənt/',en:'A substance that pollutes air, water, or soil',vi:'Chất gây ô nhiễm',sentence:'Industrial <em>pollutants</em> have damaged the river ecosystem.',col:['chemical pollutant','air pollutant','toxic pollutant']},
   {id:'tec1',topic:'technology',word:'innovation',pos:'noun',ph:'/ˌɪn.əˈveɪ.ʃən/',en:'A new idea, method, or invention',vi:'Sự đổi mới, cải tiến',sentence:'Technological <em>innovation</em> is transforming every industry.',col:['technological innovation','drive innovation','foster innovation']},
-  {id:'tec2',topic:'technology',word:'automation',pos:'noun',ph:'/ˌɔː.təˈmeɪ.ʃən/',en:'The use of machines instead of human workers',vi:'Tự động hóa',sentence:'<em>Automation</em> may replace millions of jobs in the future.',col:['factory automation','automation technology','job automation']},
+  {id:'tec2',topic:'technology',word:'automation',pos:'noun',ph:'/ˌɔː.təˈmeɪ.ʃən/',en:'The use of machines instead of human workers',vi:'Tự động hóa',sentence:'<em>Automation</em> may replace millions of jobs in the future.',col:['factory automation','job automation','automation technology']},
   {id:'tec3',topic:'technology',word:'surveillance',pos:'noun',ph:'/sɜːˈveɪ.ləns/',en:'Close observation, especially by authorities',vi:'Sự giám sát, theo dõi',sentence:'CCTV cameras provide constant <em>surveillance</em> of public spaces.',col:['mass surveillance','surveillance camera','government surveillance']},
-  {id:'tec4',topic:'technology',word:'algorithm',pos:'noun',ph:'/ˈæl.ɡə.rɪ.ðəm/',en:'A set of rules for solving a problem, used by computers',vi:'Thuật toán',sentence:'Social media <em>algorithms</em> decide what content you see.',col:['search algorithm','AI algorithm','algorithm bias']},
-  {id:'tec5',topic:'technology',word:'cybersecurity',pos:'noun',ph:'/ˌsaɪ.bə.sɪˈkjʊə.rɪ.ti/',en:'Protection of computer systems from digital attack',vi:'An niệm mạng',sentence:'Companies invest heavily in <em>cybersecurity</em> to protect data.',col:['cybersecurity threat','cybersecurity breach','improve cybersecurity']},
+  {id:'tec4',topic:'technology',word:'algorithm',pos:'noun',ph:'/ˈæl.ɡə.rɪ.ðəm/',en:'A set of rules a computer follows to solve a problem',vi:'Thuật toán',sentence:'Social media <em>algorithms</em> decide what content you see.',col:['search algorithm','AI algorithm','algorithm bias']},
+  {id:'tec5',topic:'technology',word:'cybersecurity',pos:'noun',ph:'/ˌsaɪ.bə.sɪˈkjʊə.rɪ.ti/',en:'Protection of computer systems from digital attack',vi:'An ninh mạng',sentence:'Companies invest heavily in <em>cybersecurity</em> to protect data.',col:['cybersecurity threat','cybersecurity breach','improve cybersecurity']},
   {id:'tec6',topic:'technology',word:'obsolete',pos:'adj',ph:'/ˈɒb.sə.liːt/',en:'No longer used or needed; out of date',vi:'Lỗi thời, không còn dùng nữa',sentence:'Physical maps have become <em>obsolete</em> due to smartphones.',col:['become obsolete','obsolete technology','render obsolete']},
   {id:'tec7',topic:'technology',word:'artificial intelligence',pos:'noun',ph:'/ˌɑː.tɪˈfɪʃ.əl ɪnˈtel.ɪ.dʒəns/',en:'Computer systems able to perform tasks requiring human intelligence',vi:'Trí tuệ nhân tạo',sentence:'<em>Artificial intelligence</em> is revolutionising medical diagnosis.',col:['AI technology','develop AI','AI system']},
-  {id:'tec8',topic:'technology',word:'digital divide',pos:'noun',ph:'/ˈdɪdʒ.ɪ.təl dɪˈvaɪd/',en:'The gap between those with and without internet access',vi:'Khoảng cách kỹ thuật số',sentence:'The <em>digital divide</em> leaves rural communities behind.',col:['bridge the divide','digital divide gap','widen the divide']},
-
-  // HEALTH
+  {id:'tec8',topic:'technology',word:'digital divide',pos:'noun',ph:'/ˈdɪdʒ.ɪ.təl dɪˈvaɪd/',en:'The gap between those with and without internet access',vi:'Khoảng cách kỹ thuật số',sentence:'The <em>digital divide</em> leaves rural communities behind.',col:['bridge the divide','digital gap','widen the divide']},
   {id:'hlt1',topic:'health',word:'obesity',pos:'noun',ph:'/əʊˈbiː.sɪ.ti/',en:'The condition of being very overweight',vi:'Béo phì',sentence:'<em>Obesity</em> rates have tripled globally since 1975.',col:['childhood obesity','obesity epidemic','obesity rates']},
-  {id:'hlt2',topic:'health',word:'pandemic',pos:'noun',ph:'/pænˈdem.ɪk/',en:'An epidemic that spreads across a whole country or world',vi:'Đại dịch',sentence:'The COVID-19 <em>pandemic</em> disrupted healthcare worldwide.',col:['global pandemic','pandemic response','pandemic outbreak']},
+  {id:'hlt2',topic:'health',word:'pandemic',pos:'noun',ph:'/pænˈdem.ɪk/',en:'A disease epidemic that spreads across countries or worldwide',vi:'Đại dịch',sentence:'The COVID-19 <em>pandemic</em> disrupted healthcare worldwide.',col:['global pandemic','pandemic response','pandemic outbreak']},
   {id:'hlt3',topic:'health',word:'sedentary',pos:'adj',ph:'/ˈsed.ən.tri/',en:'Spending a lot of time sitting and being physically inactive',vi:'Ít vận động, hay ngồi một chỗ',sentence:'A <em>sedentary</em> lifestyle increases the risk of heart disease.',col:['sedentary lifestyle','sedentary work','sedentary behaviour']},
-  {id:'hlt4',topic:'health',word:'mortality',pos:'noun',ph:'/mɔːˈtæl.ɪ.ti/',en:'The number of deaths in a population',vi:'Tỷ lệ tử vong',sentence:'Child <em>mortality</em> has fallen significantly in developing countries.',col:['infant mortality','mortality rate','reduce mortality']},
-  {id:'hlt5',topic:'health',word:'prevalent',pos:'adj',ph:'/ˈprev.ə.lənt/',en:'Existing or happening commonly in a place or at a time',vi:'Phổ biến, lan rộng',sentence:'Diabetes is increasingly <em>prevalent</em> in urban populations.',col:['widely prevalent','prevalent disease','prevalent issue']},
-  {id:'hlt6',topic:'health',word:'vaccination',pos:'noun',ph:'/ˌvæk.sɪˈneɪ.ʃən/',en:'Treatment with a vaccine to prevent disease',vi:'Tiêm chủng, tiêm vắc-xin',sentence:' Mass <em>vaccination</em> campaigns eradicated smallpox.',col:['vaccination campaign','mandatory vaccination','vaccination rate']},
-  {id:'hlt7',topic:'health',word:'malnutrition',pos:'noun',ph:'/ˌmæl.njuːˈtrɪʃ.ən/',en:'Poor health caused by lack of food or the wrong diet',vi:'Suy dinh dưỡng',sentence:'<em>Malnutrition</em> affects over 800 million people worldwide.',col:['severe malnutrition','childhood malnutrition','combat malnutrition']},
+  {id:'hlt4',topic:'health',word:'mortality',pos:'noun',ph:'/mɔːˈtæl.ɪ.ti/',en:'The number of deaths in a population over a time period',vi:'Tỷ lệ tử vong',sentence:'Child <em>mortality</em> has fallen significantly in developing countries.',col:['infant mortality','mortality rate','reduce mortality']},
+  {id:'hlt5',topic:'health',word:'prevalent',pos:'adj',ph:'/ˈprev.ə.lənt/',en:'Existing or happening commonly in a place',vi:'Phổ biến, lan rộng',sentence:'Diabetes is increasingly <em>prevalent</em> in urban populations.',col:['widely prevalent','prevalent disease','prevalent issue']},
+  {id:'hlt6',topic:'health',word:'vaccination',pos:'noun',ph:'/ˌvæk.sɪˈneɪ.ʃən/',en:'Treatment with a vaccine to prevent disease',vi:'Tiêm chủng, tiêm vắc-xin',sentence:'Mass <em>vaccination</em> campaigns eradicated smallpox.',col:['vaccination campaign','mandatory vaccination','vaccination rate']},
+  {id:'hlt7',topic:'health',word:'malnutrition',pos:'noun',ph:'/ˌmæl.njuːˈtrɪʃ.ən/',en:'Poor health caused by lack of food or wrong diet',vi:'Suy dinh dưỡng',sentence:'<em>Malnutrition</em> affects over 800 million people worldwide.',col:['severe malnutrition','childhood malnutrition','combat malnutrition']},
   {id:'hlt8',topic:'health',word:'chronic',pos:'adj',ph:'/ˈkrɒn.ɪk/',en:'Lasting for a long time or recurring frequently',vi:'Mãn tính, kéo dài lâu',sentence:'<em>Chronic</em> stress can damage the immune system.',col:['chronic disease','chronic pain','chronic illness']},
-
-  // SOCIETY
   {id:'soc1',topic:'society',word:'inequality',pos:'noun',ph:'/ˌɪn.ɪˈkwɒl.ɪ.ti/',en:'Difference in social status, wealth, or opportunity',vi:'Bất bình đẳng, sự không công bằng',sentence:'Economic <em>inequality</em> undermines social cohesion.',col:['social inequality','wealth inequality','gender inequality']},
-  {id:'soc2',topic:'society',word:'urbanisation',pos:'noun',ph:'/ˌɜː.bə.naɪˈzeɪ.ʃən/',en:'The process of making an area more urban',vi:'Đô thị hóa',sentence:'Rapid <em>urbanisation</em> strains infrastructure in developing nations.',col:['rapid urbanisation','urbanisation rate','rural urbanisation']},
+  {id:'soc2',topic:'society',word:'urbanisation',pos:'noun',ph:'/ˌɜː.bə.naɪˈzeɪ.ʃən/',en:'The process by which towns and cities grow larger',vi:'Đô thị hóa',sentence:'Rapid <em>urbanisation</em> strains infrastructure in developing nations.',col:['rapid urbanisation','urbanisation rate','rural urbanisation']},
   {id:'soc3',topic:'society',word:'discrimination',pos:'noun',ph:'/dɪˌskrɪm.ɪˈneɪ.ʃən/',en:'Unjust treatment based on a particular characteristic',vi:'Sự phân biệt đối xử',sentence:'Laws exist to prevent racial <em>discrimination</em> in the workplace.',col:['racial discrimination','gender discrimination','face discrimination']},
   {id:'soc4',topic:'society',word:'cohesion',pos:'noun',ph:'/kəʊˈhiː.ʒən/',en:'The unity and agreement among members of a group',vi:'Sự gắn kết, đoàn kết',sentence:'Strong social <em>cohesion</em> leads to safer communities.',col:['social cohesion','community cohesion','national cohesion']},
   {id:'soc5',topic:'society',word:'migration',pos:'noun',ph:'/maɪˈɡreɪ.ʃən/',en:'Movement of people from one region or country to another',vi:'Di cư, di dân',sentence:'Economic <em>migration</em> shapes the demographics of many cities.',col:['mass migration','economic migration','migration patterns']},
   {id:'soc6',topic:'society',word:'empower',pos:'verb',ph:'/ɪmˈpaʊər/',en:'To give someone the power or authority to do something',vi:'Trao quyền, tăng cường năng lực',sentence:'Education can <em>empower</em> women in developing countries.',col:['empower women','empower communities','empower individuals']},
   {id:'soc7',topic:'society',word:'stereotype',pos:'noun',ph:'/ˈster.i.ə.taɪp/',en:'A fixed, oversimplified idea about a group of people',vi:'Định kiến, khuôn mẫu cố định',sentence:'Media often reinforces harmful <em>stereotypes</em> about gender.',col:['gender stereotype','challenge stereotypes','racial stereotype']},
-  {id:'soc8',topic:'society',word:'infrastructure',pos:'noun',ph:'/ˈɪn.frəˌstrʌk.tʃər/',en:'Basic systems and services that a country needs',vi:'Cơ sở hạ tầng',sentence:'Poor <em>infrastructure</em> hampers economic development.',col:['build infrastructure','transport infrastructure','digital infrastructure']},
-
-  // EDUCATION
+  {id:'soc8',topic:'society',word:'infrastructure',pos:'noun',ph:'/ˈɪn.frəˌstrʌk.tʃər/',en:'Basic systems and services that a country needs to function',vi:'Cơ sở hạ tầng',sentence:'Poor <em>infrastructure</em> hampers economic development.',col:['build infrastructure','transport infrastructure','digital infrastructure']},
   {id:'edu1',topic:'education',word:'curriculum',pos:'noun',ph:'/kəˈrɪk.jə.ləm/',en:'The subjects studied at a school or university',vi:'Chương trình giảng dạy',sentence:'The school <em>curriculum</em> should include critical thinking skills.',col:['school curriculum','national curriculum','revise curriculum']},
   {id:'edu2',topic:'education',word:'literacy',pos:'noun',ph:'/ˈlɪt.ər.ə.si/',en:'The ability to read and write',vi:'Biết đọc biết viết, trình độ văn hóa',sentence:'Improving <em>literacy</em> rates is a priority for development.',col:['digital literacy','literacy rate','financial literacy']},
-  {id:'edu3',topic:'education',word:'vocational',pos:'adj',ph:'/vəʊˈkeɪ.ʃən.əl/',en:'Relating to skills needed for a specific job',vi:'Dạy nghề, hướng nghiệp',sentence:'<em>Vocational</em> training provides practical skills for employment.',col:['vocational training','vocational school','vocational course']},
-  {id:'edu4',topic:'education',word:'critical thinking',pos:'noun',ph:'/ˈkrɪt.ɪ.kəl ˈθɪŋ.kɪŋ/',en:'The ability to analyse information objectively',vi:'Tư duy phản biện',sentence:'Universities must foster <em>critical thinking</em> in students.',col:['develop critical thinking','critical thinking skills','apply critical thinking']},
+  {id:'edu3',topic:'education',word:'vocational',pos:'adj',ph:'/vəʊˈkeɪ.ʃən.əl/',en:'Relating to skills needed for a specific job or career',vi:'Dạy nghề, hướng nghiệp',sentence:'<em>Vocational</em> training provides practical skills for employment.',col:['vocational training','vocational school','vocational course']},
+  {id:'edu4',topic:'education',word:'critical thinking',pos:'noun',ph:'/ˈkrɪt.ɪ.kəl ˈθɪŋ.kɪŋ/',en:'The ability to analyse information objectively and make judgements',vi:'Tư duy phản biện',sentence:'Universities must foster <em>critical thinking</em> in students.',col:['develop critical thinking','critical thinking skills','apply critical thinking']},
   {id:'edu5',topic:'education',word:'tuition',pos:'noun',ph:'/tjuːˈɪʃ.ən/',en:'Teaching, or the fee charged for education',vi:'Học phí; việc dạy kèm',sentence:'Rising <em>tuition</em> fees are pricing students out of university.',col:['tuition fees','private tuition','tuition costs']},
-  {id:'edu6',topic:'education',word:'graduate',pos:'verb',ph:'/ˈɡrædʒ.u.eɪt/',en:'To successfully complete a degree or course',vi:'Tốt nghiệp',sentence:'She will <em>graduate</em> from medical school next year.',col:['graduate from','graduate with honours','graduate student']},
-  {id:'edu7',topic:'education',word:'collaborate',pos:'verb',ph:'/kəˈlæb.ə.reɪt/',en:'To work together with others on a task',vi:'Hợp tác, cộng tác',sentence:'Students learn better when they <em>collaborate</em> on projects.',col:['collaborate with','collaborate on','closely collaborate']},
-  {id:'edu8',topic:'education',word:'pedagogy',pos:'noun',ph:'/ˈped.ə.ɡɒdʒ.i/',en:'The method and practice of teaching',vi:'Phương pháp sư phạm, nghệ thuật dạy học',sentence:'Modern <em>pedagogy</em> emphasises student-centred learning.',col:['teaching pedagogy','effective pedagogy','innovative pedagogy']},
-
-  // ECONOMY
+  {id:'edu6',topic:'education',word:'collaborate',pos:'verb',ph:'/kəˈlæb.ə.reɪt/',en:'To work together with others to achieve a shared goal',vi:'Hợp tác, cộng tác',sentence:'Students learn better when they <em>collaborate</em> on projects.',col:['collaborate with','collaborate on','closely collaborate']},
   {id:'eco1',topic:'economy',word:'inflation',pos:'noun',ph:'/ɪnˈfleɪ.ʃən/',en:'A general rise in the price level of goods and services',vi:'Lạm phát',sentence:'High <em>inflation</em> erodes the purchasing power of consumers.',col:['rising inflation','control inflation','inflation rate']},
-  {id:'eco2',topic:'economy',word:'recession',pos:'noun',ph:'/rɪˈseʃ.ən/',en:'A period of economic decline',vi:'Suy thoái kinh tế',sentence:'The 2008 financial crisis triggered a global <em>recession</em>.',col:['economic recession','deep recession','avoid recession']},
-  {id:'eco3',topic:'economy',word:'globalisation',pos:'noun',ph:'/ˌɡləʊ.bəl.aɪˈzeɪ.ʃən/',en:'The process of becoming worldwide in scope',vi:'Toàn cầu hóa',sentence:'<em>Globalisation</em> has connected markets across the world.',col:['economic globalisation','effects of globalisation','resist globalisation']},
+  {id:'eco2',topic:'economy',word:'recession',pos:'noun',ph:'/rɪˈseʃ.ən/',en:'A period of significant economic decline',vi:'Suy thoái kinh tế',sentence:'The 2008 financial crisis triggered a global <em>recession</em>.',col:['economic recession','deep recession','avoid recession']},
+  {id:'eco3',topic:'economy',word:'globalisation',pos:'noun',ph:'/ˌɡləʊ.bəl.aɪˈzeɪ.ʃən/',en:'The process of becoming worldwide in scope or application',vi:'Toàn cầu hóa',sentence:'<em>Globalisation</em> has connected markets across the world.',col:['economic globalisation','effects of globalisation','resist globalisation']},
   {id:'eco4',topic:'economy',word:'entrepreneur',pos:'noun',ph:'/ˌɒn.trə.prəˈnɜː/',en:'Someone who starts a business, taking on financial risk',vi:'Doanh nhân, người khởi nghiệp',sentence:'Young <em>entrepreneurs</em> are driving innovation in tech.',col:['successful entrepreneur','social entrepreneur','aspiring entrepreneur']},
-  {id:'eco5',topic:'economy',word:'subsidise',pos:'verb',ph:'/ˈsʌb.sɪ.daɪz/',en:'To support financially with public money',vi:'Trợ cấp, bao cấp',sentence:'Many governments <em>subsidise</em> renewable energy development.',col:['subsidise agriculture','heavily subsidised','government subsidy']},
-  {id:'eco6',topic:'economy',word:'disparity',pos:'noun',ph:'/dɪˈspær.ɪ.ti/',en:'A great difference between things',vi:'Sự chênh lệch, bất cân đối',sentence:'There is a wide <em>disparity</em> in wages between men and women.',col:['wealth disparity','income disparity','regional disparity']},
-  {id:'eco7',topic:'economy',word:'austerity',pos:'noun',ph:'/ɒˈster.ɪ.ti/',en:'Difficult economic conditions with spending cuts',vi:'Chính sách thắt lưng buộc bụng, khắc khổ',sentence:'<em>Austerity</em> measures reduced public services significantly.',col:['austerity measures','impose austerity','austerity cuts']},
-  {id:'eco8',topic:'economy',word:'commodity',pos:'noun',ph:'/kəˈmɒd.ɪ.ti/',en:'A raw material or product that can be bought and sold',vi:'Hàng hóa, nguyên liệu thô',sentence:'Oil is one of the world\'s most traded <em>commodities</em>.',col:['commodity price','agricultural commodity','commodity market']},
-
-  // GOVERNMENT
+  {id:'eco5',topic:'economy',word:'subsidise',pos:'verb',ph:'/ˈsʌb.sɪ.daɪz/',en:'To support financially with government or public money',vi:'Trợ cấp, bao cấp',sentence:'Many governments <em>subsidise</em> renewable energy development.',col:['subsidise agriculture','heavily subsidised','government subsidy']},
+  {id:'eco6',topic:'economy',word:'disparity',pos:'noun',ph:'/dɪˈspær.ɪ.ti/',en:'A great difference or inequality between things',vi:'Sự chênh lệch, bất cân đối',sentence:'There is a wide <em>disparity</em> in wages between men and women.',col:['wealth disparity','income disparity','regional disparity']},
   {id:'gov1',topic:'government',word:'democracy',pos:'noun',ph:'/dɪˈmɒk.rə.si/',en:'A system of government chosen by citizens through elections',vi:'Dân chủ, chế độ dân chủ',sentence:'Free elections are the foundation of <em>democracy</em>.',col:['liberal democracy','promote democracy','democratic process']},
   {id:'gov2',topic:'government',word:'legislation',pos:'noun',ph:'/ˌledʒ.ɪˈsleɪ.ʃən/',en:'A law or set of laws made by a government',vi:'Luật pháp, văn bản pháp luật',sentence:'New <em>legislation</em> banning single-use plastics took effect.',col:['pass legislation','introduce legislation','environmental legislation']},
-  {id:'gov3',topic:'government',word:'policy',pos:'noun',ph:'/ˈpɒl.ɪ.si/',en:'A set of plans adopted by a government or organisation',vi:'Chính sách',sentence:'Government <em>policy</em> must address growing youth unemployment.',col:['government policy','public policy','implement a policy']},
-  {id:'gov4',topic:'government',word:'corruption',pos:'noun',ph:'/kəˈrʌp.ʃən/',en:'Dishonest or fraudulent conduct by those in power',vi:'Tham nhũng, hối lộ',sentence:'<em>Corruption</em> undermines trust in public institutions.',col:['political corruption','tackle corruption','corruption scandal']},
-  {id:'gov5',topic:'government',word:'bureaucracy',pos:'noun',ph:'/bjʊˈrɒk.rə.si/',en:'A system of government with complex rules and officials',vi:'Bộ máy quan liêu, hệ thống hành chính',sentence:'Excessive <em>bureaucracy</em> slows down business development.',col:['government bureaucracy','cut bureaucracy','bureaucratic process']},
-  {id:'gov6',topic:'government',word:'transparency',pos:'noun',ph:'/trænsˈpær.ən.si/',en:'Openness and accountability in decision-making',vi:'Sự minh bạch, rõ ràng',sentence:'Citizens demand greater <em>transparency</em> in public spending.',col:['promote transparency','lack of transparency','financial transparency']},
-  {id:'gov7',topic:'government',word:'regulate',pos:'verb',ph:'/ˈreɡ.jʊ.leɪt/',en:'To control by means of rules or regulations',vi:'Điều tiết, quản lý bằng luật',sentence:'Governments must <em>regulate</em> social media platforms more strictly.',col:['regulate industry','heavily regulated','regulate emissions']},
-  {id:'gov8',topic:'government',word:'referendum',pos:'noun',ph:'/ˌref.əˈren.dəm/',en:'A public vote on a single political question',vi:'Trưng cầu dân ý',sentence:'The country held a <em>referendum</em> on independence.',col:['hold a referendum','national referendum','referendum result']},
-
-  // ACADEMIC LANGUAGE
-  {id:'aca1',topic:'academic',word:'hypothesis',pos:'noun',ph:'/haɪˈpɒθ.ɪ.sɪs/',en:'A proposed explanation made as a starting point for investigation',vi:'Giả thuyết',sentence:'The researchers tested their <em>hypothesis</em> through experiments.',col:['test a hypothesis','support a hypothesis','formulate a hypothesis']},
+  {id:'gov3',topic:'government',word:'corruption',pos:'noun',ph:'/kəˈrʌp.ʃən/',en:'Dishonest or fraudulent conduct by those in power',vi:'Tham nhũng, hối lộ',sentence:'<em>Corruption</em> undermines trust in public institutions.',col:['political corruption','tackle corruption','corruption scandal']},
+  {id:'gov4',topic:'government',word:'transparency',pos:'noun',ph:'/trænsˈpær.ən.si/',en:'Openness and accountability in decision-making',vi:'Sự minh bạch, rõ ràng',sentence:'Citizens demand greater <em>transparency</em> in public spending.',col:['promote transparency','lack of transparency','financial transparency']},
+  {id:'gov5',topic:'government',word:'regulate',pos:'verb',ph:'/ˈreɡ.jʊ.leɪt/',en:'To control by means of rules or regulations',vi:'Điều tiết, quản lý bằng luật',sentence:'Governments must <em>regulate</em> social media platforms more strictly.',col:['regulate industry','heavily regulated','regulate emissions']},
+  {id:'aca1',topic:'academic',word:'hypothesis',pos:'noun',ph:'/haɪˈpɒθ.ɪ.sɪs/',en:'A proposed explanation as a starting point for investigation',vi:'Giả thuyết',sentence:'The researchers tested their <em>hypothesis</em> through experiments.',col:['test a hypothesis','support a hypothesis','formulate a hypothesis']},
   {id:'aca2',topic:'academic',word:'empirical',pos:'adj',ph:'/emˈpɪr.ɪ.kəl/',en:'Based on observation or experiment rather than theory',vi:'Thực nghiệm, dựa trên bằng chứng thực tế',sentence:'The study provides <em>empirical</em> evidence for the theory.',col:['empirical evidence','empirical research','empirical data']},
-  {id:'aca3',topic:'academic',word:'contradict',pos:'verb',ph:'/ˌkɒn.trəˈdɪkt/',en:'To say the opposite of what someone else has said',vi:'Mâu thuẫn, phủ nhận',sentence:'These findings <em>contradict</em> the earlier study\'s conclusions.',col:['contradict evidence','directly contradict','contradict claims']},
-  {id:'aca4',topic:'academic',word:'correlation',pos:'noun',ph:'/ˌkɒr.əˈleɪ.ʃən/',en:'A mutual relationship between two or more things',vi:'Mối tương quan, liên hệ',sentence:'There is a strong <em>correlation</em> between poverty and crime.',col:['strong correlation','positive correlation','negative correlation']},
-  {id:'aca5',topic:'academic',word:'premise',pos:'noun',ph:'/ˈprem.ɪs/',en:'A statement assumed to be true as the basis of an argument',vi:'Tiền đề, căn cứ lập luận',sentence:'The argument rests on a false <em>premise</em>.',col:['basic premise','underlying premise','on the premise that']},
-  {id:'aca6',topic:'academic',word:'significant',pos:'adj',ph:'/sɪɡˈnɪf.ɪ.kənt/',en:'Important or large enough to have an effect',vi:'Đáng kể, có ý nghĩa quan trọng',sentence:'The results show a <em>significant</em> improvement in test scores.',col:['statistically significant','highly significant','significant impact']},
-  {id:'aca7',topic:'academic',word:'phenomenon',pos:'noun',ph:'/fɪˈnɒm.ɪ.nən/',en:'A fact or situation observed to exist or happen',vi:'Hiện tượng',sentence:'Climate change is a global <em>phenomenon</em>.',col:['natural phenomenon','social phenomenon','rare phenomenon']},
-  {id:'aca8',topic:'academic',word:'inevitable',pos:'adj',ph:'/ɪnˈev.ɪ.tə.bəl/',en:'Certain to happen and impossible to prevent',vi:'Không thể tránh khỏi, tất yếu',sentence:'Conflict seemed <em>inevitable</em> given the political tension.',col:['almost inevitable','inevitable consequence','seem inevitable']},
-
-  // ENVIRONMENT (more)
-  {id:'env9',topic:'environment',word:'conservation',pos:'noun',ph:'/ˌkɒn.səˈveɪ.ʃən/',en:'Protection and management of natural resources',vi:'Bảo tồn, giữ gìn thiên nhiên',sentence:'Wildlife <em>conservation</em> requires international cooperation.',col:['wildlife conservation','nature conservation','conservation effort']},
-  {id:'env10',topic:'environment',word:'habitat',pos:'noun',ph:'/ˈhæb.ɪ.tæt/',en:'The natural home or environment of an animal or plant',vi:'Môi trường sống, sinh cảnh',sentence:'Urban expansion destroys natural <em>habitats</em>.',col:['natural habitat','destroy habitat','habitat loss']},
-  {id:'env11',topic:'environment',word:'carbon footprint',pos:'noun',ph:'/ˈkɑː.bən ˈfʊt.prɪnt/',en:'Total greenhouse gas emissions caused by an individual or organisation',vi:'Dấu chân carbon, lượng khí thải CO2 cá nhân',sentence:'You can reduce your <em>carbon footprint</em> by using public transport.',col:['reduce carbon footprint','calculate carbon footprint','large carbon footprint']},
-  {id:'env12',topic:'environment',word:'pollutant',pos:'noun',ph:'/pəˈluː.tənt/',en:'A substance that pollutes air, water, or soil',vi:'Chất gây ô nhiễm',sentence:'Industrial <em>pollutants</em> have damaged the river ecosystem.',col:['chemical pollutant','air pollutant','toxic pollutant']},
-
-  // TECHNOLOGY (more)
-  {id:'tec9',topic:'technology',word:'platform',pos:'noun',ph:'/ˈplæt.fɔːm/',en:'A digital service allowing others to build products or services',vi:'Nền tảng (kỹ thuật số)',sentence:'Social media <em>platforms</em> must take responsibility for harmful content.',col:['digital platform','online platform','platform economy']},
-  {id:'tec10',topic:'technology',word:'data privacy',pos:'noun',ph:'/ˈdeɪ.tə ˈprɪv.ə.si/',en:'The right to control personal information collected online',vi:'Quyền riêng tư dữ liệu',sentence:'<em>Data privacy</em> laws are stricter in Europe than in Asia.',col:['protect data privacy','data privacy rights','data privacy law']},
-
-  // SOCIETY (more)
-  {id:'soc9',topic:'society',word:'demographic',pos:'noun',ph:'/ˌdem.əˈɡræf.ɪk/',en:'Statistical data about a population',vi:'Nhân khẩu học, số liệu dân số',sentence:'An ageing <em>demographic</em> puts pressure on pension systems.',col:['demographic change','ageing demographic','demographic data']},
-  {id:'soc10',topic:'society',word:'affluent',pos:'adj',ph:'/ˈæf.lu.ənt/',en:'Having a lot of money; wealthy',vi:'Giàu có, sung túc',sentence:'Only <em>affluent</em> families can afford private schools.',col:['affluent society','affluent neighbourhood','relatively affluent']},
-  {id:'soc11',topic:'society',word:'volunteer',pos:'verb',ph:'/ˌvɒl.ənˈtɪər/',en:'To offer to do something without being paid',vi:'Tình nguyện, tham gia tình nguyện',sentence:'Thousands of people <em>volunteer</em> at food banks every week.',col:['volunteer work','volunteer programme','volunteer service']},
-  {id:'soc12',topic:'society',word:'welfare',pos:'noun',ph:'/ˈwel.feər/',en:'Financial support provided by the state to those in need',vi:'Phúc lợi xã hội',sentence:'The government cut <em>welfare</em> benefits for unemployed workers.',col:['social welfare','welfare system','welfare state']},
-
-  // ECONOMY (more)
-  {id:'eco9',topic:'economy',word:'gross domestic product',pos:'noun',ph:'/ɡrəʊs dəˈmes.tɪk ˈprɒd.əkt/',en:'The total value of goods and services in a country (GDP)',vi:'Tổng sản phẩm quốc nội (GDP)',sentence:'GDP growth slowed to 1.2% last year.',col:['GDP growth','GDP per capita','measure GDP']},
-  {id:'eco10',topic:'economy',word:'invest',pos:'verb',ph:'/ɪnˈvest/',en:'To put money into something expecting a return',vi:'Đầu tư',sentence:'Firms must <em>invest</em> in research to remain competitive.',col:['invest in','heavily invest','invest capital']},
-
-  // GOVERNMENT (more)
-  {id:'gov9',topic:'government',word:'sanction',pos:'noun',ph:'/ˈsæŋk.ʃən/',en:'A penalty imposed on a country or person for breaking rules',vi:'Biện pháp trừng phạt, cấm vận',sentence:'Economic <em>sanctions</em> were imposed on the country.',col:['impose sanctions','trade sanctions','lift sanctions']},
-  {id:'gov10',topic:'government',word:'lobby',pos:'verb',ph:'/ˈlɒb.i/',en:'To try to influence politicians on a particular issue',vi:'Vận động hành lang, gây áp lực chính trị',sentence:'Oil companies <em>lobby</em> against climate legislation.',col:['lobby government','lobby for','lobby group']},
-
-  // ACADEMIC (more)
-  {id:'aca9',topic:'academic',word:'consequently',pos:'adv',ph:'/ˈkɒn.sɪ.kwənt.li/',en:'As a result; therefore',vi:'Do đó, kết quả là',sentence:'He failed to study; <em>consequently</em>, he failed the exam.',col:['consequently lead to','as a consequence','direct consequence']},
-  {id:'aca10',topic:'academic',word:'furthermore',pos:'adv',ph:'/ˌfɜː.ðəˈmɔː/',en:'In addition to what has already been said',vi:'Hơn nữa, thêm vào đó',sentence:'The drug is effective; <em>furthermore</em>, it has few side effects.',col:['furthermore suggest','furthermore argue','furthermore demonstrate']},
-  {id:'aca11',topic:'academic',word:'albeit',pos:'conj',ph:'/ˌɔːlˈbiː.ɪt/',en:'Although; even though',vi:'Mặc dù, dù cho',sentence:'The plan succeeded, <em>albeit</em> with some difficulties.',col:['albeit slowly','albeit briefly','albeit imperfect']},
-  {id:'aca12',topic:'academic',word:'plausible',pos:'adj',ph:'/ˈplɔː.zɪ.bəl/',en:'Seeming reasonable or probable',vi:'Có vẻ hợp lý, đáng tin',sentence:'The theory sounds <em>plausible</em> but lacks evidence.',col:['plausible explanation','highly plausible','seem plausible']},
+  {id:'aca3',topic:'academic',word:'correlation',pos:'noun',ph:'/ˌkɒr.əˈleɪ.ʃən/',en:'A mutual relationship between two or more things',vi:'Mối tương quan, liên hệ',sentence:'There is a strong <em>correlation</em> between poverty and crime.',col:['strong correlation','positive correlation','negative correlation']},
+  {id:'aca4',topic:'academic',word:'significant',pos:'adj',ph:'/sɪɡˈnɪf.ɪ.kənt/',en:'Important or large enough to have a noticeable effect',vi:'Đáng kể, có ý nghĩa quan trọng',sentence:'The results show a <em>significant</em> improvement in test scores.',col:['statistically significant','highly significant','significant impact']},
+  {id:'aca5',topic:'academic',word:'phenomenon',pos:'noun',ph:'/fɪˈnɒm.ɪ.nən/',en:'A fact or situation observed to exist or happen in the world',vi:'Hiện tượng',sentence:'Climate change is a global <em>phenomenon</em>.',col:['natural phenomenon','social phenomenon','rare phenomenon']},
+  {id:'aca6',topic:'academic',word:'inevitable',pos:'adj',ph:'/ɪnˈev.ɪ.tə.bəl/',en:'Certain to happen and impossible to prevent',vi:'Không thể tránh khỏi, tất yếu',sentence:'Conflict seemed <em>inevitable</em> given the political tension.',col:['almost inevitable','inevitable consequence','seem inevitable']},
+  {id:'aca7',topic:'academic',word:'consequently',pos:'adv',ph:'/ˈkɒn.sɪ.kwənt.li/',en:'As a result; therefore',vi:'Do đó, kết quả là',sentence:'He failed to study; <em>consequently</em>, he failed the exam.',col:['as a consequence','direct consequence','consequently lead to']},
+  {id:'aca8',topic:'academic',word:'furthermore',pos:'adv',ph:'/ˌfɜː.ðəˈmɔː/',en:'In addition to what has already been said',vi:'Hơn nữa, thêm vào đó',sentence:'The drug is effective; <em>furthermore</em>, it has few side effects.',col:['furthermore suggest','furthermore argue','furthermore demonstrate']},
 ];
 
 const TOPICS = {
-  environment: {icon:'🌿',name:'Environment',color:'#52c47a'},
-  technology:  {icon:'💻',name:'Technology', color:'#4a8fe8'},
-  health:      {icon:'🩺',name:'Health',     color:'#e05050'},
-  society:     {icon:'🏙️',name:'Society',    color:'#9b7de8'},
-  education:   {icon:'📚',name:'Education',  color:'#e8843a'},
-  economy:     {icon:'💰',name:'Economy',    color:'#d4a843'},
-  government:  {icon:'🏛️',name:'Government',color:'#5aa8b8'},
-  academic:    {icon:'🎓',name:'Academic',   color:'#c47a52'},
+  environment:{icon:'🌿',name:'Environment'},
+  technology: {icon:'💻',name:'Technology'},
+  health:     {icon:'🩺',name:'Health'},
+  society:    {icon:'🏙️',name:'Society'},
+  education:  {icon:'📚',name:'Education'},
+  economy:    {icon:'💰',name:'Economy'},
+  government: {icon:'🏛️',name:'Government'},
+  academic:   {icon:'🎓',name:'Academic'},
 };
 
-// ─────────────────────────────────────────────
-// STATE & SRS
-// ─────────────────────────────────────────────
-let state = loadState();
-let session = [];
-let sessionIdx = 0;
-let sessionNewCount = 0;
-let isFlipped = false;
+// ── STATE ─────────────────────────────────────
+let srsData = load('ielts_srs_v3') || {};
+let streakData = load('ielts_streak_v3') || {streak:0,last:'',days:0};
+let session=[], sessionIdx=0, sessionNew=0, isFlipped=false;
 let selectedTopics = new Set(Object.keys(TOPICS));
+let isDark = load('ielts_theme') === 'dark';
 
-function loadState() {
-  try { return JSON.parse(localStorage.getItem('ielts_vocab_v2')) || {}; } catch { return {}; }
+function load(k){try{return JSON.parse(localStorage.getItem(k));}catch{return null;}}
+function save(k,v){localStorage.setItem(k,JSON.stringify(v));}
+
+// ── THEME ─────────────────────────────────────
+function applyTheme(){
+  document.body.className = isDark ? 'dark' : 'light';
+  const label = isDark ? '☀️ Sáng' : '🌙 Tối';
+  ['themeBtn','themeBtnStudy','themeBtnDone'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.textContent=label;
+  });
+  save('ielts_theme', isDark?'dark':'light');
 }
-function saveState() {
-  localStorage.setItem('ielts_vocab_v2', JSON.stringify(state));
+function toggleTheme(){ isDark=!isDark; applyTheme(); }
+
+// ── SRS ───────────────────────────────────────
+function getCard(id){ return srsData[id]||{interval:0,nextReview:0,ease:2.5,reps:0}; }
+function isNew(id){ return !srsData[id]; }
+function isDue(id){ return getCard(id).nextReview <= Date.now(); }
+
+function updateSRS(id, r){
+  let {interval,ease,reps} = getCard(id);
+  if(r===1){interval=0;reps=0;ease=Math.max(1.3,ease-.2);}
+  else if(r===2){interval=Math.max(1,Math.round(interval*.8));ease=Math.max(1.3,ease-.15);}
+  else if(r===3){interval=reps===0?1:reps===1?3:Math.round(interval*ease);reps++;}
+  else{interval=reps===0?1:reps===1?4:Math.round(interval*ease*1.3);ease=Math.min(3,ease+.1);reps++;}
+  srsData[id]={interval:Math.max(1,interval),nextReview:Date.now()+Math.max(1,interval)*86400000,ease,reps,lastSeen:Date.now()};
+  save('ielts_srs_v3',srsData);
 }
 
-function getCard(id) {
-  return state[id] || { interval: 0, nextReview: 0, ease: 2.5, reps: 0 };
+// ── STREAK ────────────────────────────────────
+function markToday(){
+  const today=new Date().toDateString();
+  if(streakData.last===today) return;
+  const yesterday=new Date(Date.now()-86400000).toDateString();
+  streakData.streak=streakData.last===yesterday?streakData.streak+1:1;
+  streakData.last=today; streakData.days=(streakData.days||0)+1;
+  save('ielts_streak_v3',streakData);
 }
+function studiedToday(){ return streakData.last===new Date().toDateString(); }
 
-// SM-2 spaced repetition
-function updateSRS(id, rating) {
-  const c = getCard(id);
-  const now = Date.now();
-  let { interval, ease, reps } = c;
-  if (rating === 1) { interval = 0; reps = 0; ease = Math.max(1.3, ease - 0.2); }
-  else if (rating === 2) { interval = Math.max(1, interval * 0.8); ease = Math.max(1.3, ease - 0.15); }
-  else if (rating === 3) { interval = reps === 0 ? 1 : reps === 1 ? 3 : Math.round(interval * ease); reps++; }
-  else { interval = reps === 0 ? 1 : reps === 1 ? 4 : Math.round(interval * ease * 1.3); ease = Math.min(3, ease + 0.1); reps++; }
-  state[id] = { interval: Math.max(1, interval), nextReview: now + interval * 86400000, ease, reps, lastSeen: now };
-  saveState();
-}
+// ── HOME ──────────────────────────────────────
+function renderHome(){
+  const learned=Object.keys(srsData).length;
+  const due=VOCAB.filter(v=>!isNew(v.id)&&isDue(v.id)).length;
+  document.getElementById('statTotal').textContent=learned;
+  document.getElementById('statDue').textContent=due;
+  document.getElementById('statStreak').textContent=streakData.streak||0;
+  document.getElementById('streakDays').textContent=(streakData.streak||0)+' ngày streak';
+  document.getElementById('streakToday').textContent=studiedToday()?'✓ Đã học':'Chưa học';
 
-function isDue(id) {
-  const c = getCard(id);
-  return c.nextReview <= Date.now();
-}
-function isNew(id) { return !state[id]; }
-
-// ─────────────────────────────────────────────
-// STREAK
-// ─────────────────────────────────────────────
-function getStreak() {
-  const today = new Date().toDateString();
-  const s = JSON.parse(localStorage.getItem('ielts_streak_v2') || '{"days":0,"last":"","streak":0}');
-  return s;
-}
-function markStudiedToday() {
-  const today = new Date().toDateString();
-  const s = getStreak();
-  if (s.last === today) return;
-  const yesterday = new Date(Date.now() - 86400000).toDateString();
-  s.streak = s.last === yesterday ? s.streak + 1 : 1;
-  s.last = today;
-  s.days = (s.days || 0) + 1;
-  localStorage.setItem('ielts_streak_v2', JSON.stringify(s));
-}
-function getStreakDays() { return getStreak().streak || 0; }
-function studiedToday() { return getStreak().last === new Date().toDateString(); }
-
-// ─────────────────────────────────────────────
-// HOME
-// ─────────────────────────────────────────────
-function renderHome() {
-  const totalLearned = Object.keys(state).length;
-  const due = VOCAB.filter(v => !isNew(v.id) && isDue(v.id)).length;
-  const streak = getStreakDays();
-  document.getElementById('statTotal').textContent = totalLearned;
-  document.getElementById('statDue').textContent = due;
-  document.getElementById('statStreak').textContent = streak;
-  document.getElementById('streakDays').textContent = 'Streak: ' + streak + ' ngày';
-  document.getElementById('streakToday').textContent = studiedToday() ? '✓ Đã học hôm nay' : 'Hôm nay: chưa học';
-
-  const grid = document.getElementById('topicGrid');
-  grid.innerHTML = '';
-  Object.entries(TOPICS).forEach(([key, t]) => {
-    const count = VOCAB.filter(v => v.topic === key).length;
-    const learned = VOCAB.filter(v => v.topic === key && !isNew(v.id)).length;
-    const chip = document.createElement('div');
-    chip.className = 'topic-chip' + (selectedTopics.has(key) ? ' active' : '');
-    chip.innerHTML = `<span class="tc-icon">${t.icon}</span><span class="tc-name">${t.name}</span><div class="tc-count">${learned}/${count} từ</div>`;
-    chip.onclick = () => {
-      if (selectedTopics.has(key)) { if (selectedTopics.size > 1) selectedTopics.delete(key); }
+  const grid=document.getElementById('topicGrid');
+  grid.innerHTML='';
+  Object.entries(TOPICS).forEach(([key,t])=>{
+    const total=VOCAB.filter(v=>v.topic===key).length;
+    const done=VOCAB.filter(v=>v.topic===key&&!isNew(v.id)).length;
+    const pct=Math.round(done/total*100);
+    const chip=document.createElement('div');
+    chip.className='topic-chip'+(selectedTopics.has(key)?' active':'');
+    chip.innerHTML=`<span class="tc-icon">${t.icon}</span><div class="tc-name">${t.name}</div><div class="tc-count">${done}/${total} từ</div><div class="tc-prog"><div class="tc-prog-fill" style="width:${pct}%"></div></div>`;
+    chip.onclick=()=>{
+      if(selectedTopics.has(key)){if(selectedTopics.size>1)selectedTopics.delete(key);}
       else selectedTopics.add(key);
       renderHome();
     };
@@ -459,140 +588,102 @@ function renderHome() {
   });
 }
 
-function startSession(newOnly = false) {
-  const filtered = VOCAB.filter(v => selectedTopics.has(v.topic));
-  let pool;
-  if (newOnly) {
-    pool = filtered.filter(v => isNew(v.id));
+// ── SESSION ───────────────────────────────────
+function startSession(newOnly){
+  const pool=VOCAB.filter(v=>selectedTopics.has(v.topic));
+  let cards;
+  if(newOnly){
+    cards=pool.filter(v=>isNew(v.id));
   } else {
-    const due = filtered.filter(v => !isNew(v.id) && isDue(v.id));
-    const newW = filtered.filter(v => isNew(v.id)).slice(0, 5);
-    pool = [...due, ...newW];
-    if (pool.length === 0) pool = filtered.filter(v => isNew(v.id)).slice(0, 10);
+    const due=pool.filter(v=>!isNew(v.id)&&isDue(v.id));
+    const newW=pool.filter(v=>isNew(v.id)).slice(0,5);
+    cards=[...due,...newW];
+    if(!cards.length) cards=pool.filter(v=>isNew(v.id)).slice(0,10);
   }
-  if (pool.length === 0) { showToast('Không có từ nào cần ôn! 🎉'); return; }
-  pool = shuffle(pool).slice(0, 20);
-  session = pool;
-  sessionIdx = 0;
-  sessionNewCount = 0;
+  if(!cards.length){showToast('Không có từ nào cần ôn! 🎉');return;}
+  session=shuffle(cards).slice(0,20);
+  sessionIdx=0; sessionNew=0;
   showScreen('studyScreen');
   loadCard(0);
 }
 
-function startNewWords() { startSession(true); }
+// ── CARD ──────────────────────────────────────
+function loadCard(idx){
+  if(idx>=session.length){showDone();return;}
+  isFlipped=false;
+  const v=session[idx];
+  document.getElementById('theCard').classList.remove('flipped');
+  document.getElementById('progTopic').textContent=(TOPICS[v.topic]?.icon||'')+' '+(TOPICS[v.topic]?.name||v.topic);
+  document.getElementById('progCurrent').textContent=idx+1;
+  document.getElementById('progTotal').textContent=session.length;
+  document.getElementById('progBar').style.width=(idx/session.length*100)+'%';
 
-// ─────────────────────────────────────────────
-// STUDY
-// ─────────────────────────────────────────────
-function loadCard(idx) {
-  if (idx >= session.length) { showDone(); return; }
-  isFlipped = false;
-  const v = session[idx];
-  const total = session.length;
-  const card = document.getElementById('theCard');
-  card.classList.remove('flipped');
+  const badge=document.getElementById('cf-badge');
+  badge.textContent=isNew(v.id)?'✨ NEW — '+v.topic:(TOPICS[v.topic]?.name||v.topic);
+  badge.className='card-badge'+(isNew(v.id)?' new-badge':'');
 
-  document.getElementById('progTopic').textContent = (TOPICS[v.topic]?.icon || '') + ' ' + (TOPICS[v.topic]?.name || v.topic);
-  document.getElementById('progCurrent').textContent = idx + 1;
-  document.getElementById('progTotal').textContent = total;
-  document.getElementById('progBar').style.width = ((idx / total) * 100) + '%';
+  document.getElementById('cf-word').textContent=v.word;
+  document.getElementById('cf-phonetic').textContent=v.ph||'';
 
-  document.getElementById('cf-topic').textContent = TOPICS[v.topic]?.name || v.topic;
-  document.getElementById('cf-word').textContent = v.word;
-  document.getElementById('cf-phonetic').textContent = v.ph || '';
+  const posEl=document.getElementById('cb-pos');
+  posEl.textContent=v.pos; posEl.className='pos-tag '+v.pos;
+  document.getElementById('cb-meaning').textContent=v.en;
+  document.getElementById('cb-viet').textContent='🇻🇳 '+v.vi;
+  document.getElementById('cb-sentence').innerHTML='"'+v.sentence+'"';
+  document.getElementById('cb-colloc').innerHTML=v.col.map(c=>`<span class="colloc-tag">${c}</span>`).join('');
 
-  const posEl = document.getElementById('cb-pos');
-  posEl.textContent = v.pos;
-  posEl.className = 'card-pos ' + v.pos;
-
-  document.getElementById('cb-meaning').textContent = v.en;
-  document.getElementById('cb-viet').textContent = '🇻🇳 ' + v.vi;
-
-  // highlight word in sentence
-  const sentHtml = v.sentence.replace(/<em>(.*?)<\/em>/g, '<em>$1</em>');
-  document.getElementById('cb-sentence').innerHTML = '"' + sentHtml + '"';
-
-  const collocEl = document.getElementById('cb-colloc');
-  collocEl.innerHTML = v.col.map(c => '<span class="colloc-tag">' + c + '</span>').join('');
-
-  const newBadge = document.getElementById('newBadge');
-  newBadge.style.display = isNew(v.id) ? 'block' : 'none';
-
-  hideRatingBtns();
-  document.getElementById('ratingLabel').textContent = 'Tap card để xem nghĩa';
+  hideRating();
+  document.getElementById('ratingHint').textContent='👆 Tap card để xem nghĩa trước';
 }
 
-function flipCard() {
-  if (isFlipped) return;
-  isFlipped = true;
+function flipCard(){
+  if(isFlipped) return;
+  isFlipped=true;
   document.getElementById('theCard').classList.add('flipped');
-  showRatingBtns();
-  document.getElementById('ratingLabel').textContent = 'Bạn nhớ từ này như thế nào?';
+  showRating();
+  document.getElementById('ratingHint').textContent='Bạn nhớ từ này mức nào?';
 }
 
-function rateCard(rating) {
-  const v = session[sessionIdx];
-  if (isNew(v.id)) sessionNewCount++;
-  updateSRS(v.id, rating);
-  if (rating === 1) {
-    // push to end to review again
-    session.push(v);
-  }
+function rateCard(r){
+  const v=session[sessionIdx];
+  if(isNew(v.id)) sessionNew++;
+  updateSRS(v.id,r);
+  if(r===1) session.push(v);
   sessionIdx++;
   loadCard(sessionIdx);
 }
 
-function hideRatingBtns() {
-  [1,2,3,4].forEach(n => { document.getElementById('btn-r' + n).classList.add('hidden-rating'); });
-}
-function showRatingBtns() {
-  [1,2,3,4].forEach(n => { document.getElementById('btn-r' + n).classList.remove('hidden-rating'); });
-}
+function hideRating(){[1,2,3,4].forEach(n=>document.getElementById('btn-r'+n).classList.add('hidden-r'));}
+function showRating(){[1,2,3,4].forEach(n=>document.getElementById('btn-r'+n).classList.remove('hidden-r'));}
 
-function showDone() {
-  markStudiedToday();
-  const reviewed = Math.min(sessionIdx, session.length);
-  document.getElementById('dsDone').textContent = reviewed;
-  document.getElementById('dsNew').textContent = sessionNewCount;
-  document.getElementById('dsStreak').textContent = getStreakDays();
+function showDone(){
+  markToday();
+  document.getElementById('dsDone').textContent=Math.min(sessionIdx,session.length);
+  document.getElementById('dsNew').textContent=sessionNew;
+  document.getElementById('dsStreak').textContent=streakData.streak||0;
   showScreen('doneScreen');
   renderHome();
 }
 
-// ─────────────────────────────────────────────
-// SCREENS
-// ─────────────────────────────────────────────
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
-  document.getElementById(id).classList.remove('hidden');
+// ── NAV ───────────────────────────────────────
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('active');});
+  document.getElementById(id).classList.add('active');
 }
-function goHome() { showScreen('homeScreen'); renderHome(); }
+function goHome(){showScreen('homeScreen');renderHome();}
 
-// ─────────────────────────────────────────────
-// TOAST
-// ─────────────────────────────────────────────
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2200);
+// ── TOAST ─────────────────────────────────────
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
 }
 
-// ─────────────────────────────────────────────
-// UTILS
-// ─────────────────────────────────────────────
-function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
+// ── UTILS ─────────────────────────────────────
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
 
-// ─────────────────────────────────────────────
-// INIT
-// ─────────────────────────────────────────────
+// ── INIT ──────────────────────────────────────
+applyTheme();
 renderHome();
 </script>
 </body>
