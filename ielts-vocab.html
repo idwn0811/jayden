@@ -583,6 +583,18 @@ let queue=[],qIdx=0,sCor=0,sTot=0,sHard=0;
 let curV=null,curMode='quiz',curWord='';
 let timerInt=null,elapsed=0;
 
+// ── SOUND EFFECTS ──
+let audioCtx=null;
+function getAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx;}
+function playCorrect(){try{const ctx=getAudio();[[660,0],[880,0.13]].forEach(([f,d])=>{const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(0,ctx.currentTime+d);g.gain.linearRampToValueAtTime(0.28,ctx.currentTime+d+0.02);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+d+0.35);o.start(ctx.currentTime+d);o.stop(ctx.currentTime+d+0.36);});}catch(e){}}
+function playWrong(){try{const ctx=getAudio();const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sawtooth';o.frequency.value=160;g.gain.setValueAtTime(0,ctx.currentTime);g.gain.linearRampToValueAtTime(0.18,ctx.currentTime+0.02);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.28);o.start(ctx.currentTime);o.stop(ctx.currentTime+0.3);}catch(e){}}
+
+// ── UNIQUE WRONG OPTIONS ──
+function getWrong(cur,count){
+  const seen=new Set([cur.en,cur.w]);
+  return shuffle(VOCAB_ALL.filter(x=>x.id!==cur.id&&!seen.has(x.en)&&!seen.has(x.w))).slice(0,count);
+}
+
 // ── THEME ─────────────────────────────────
 function applyTheme(){
   document.body.className=isDark?'dark':'';
@@ -661,14 +673,13 @@ function startStudy(){
 
 function buildQueue(){
   const pool=VOCAB_ALL.filter(v=>selTop.has(v.t));
-  // 1. hard words (re-study)
   const hard=pool.filter(v=>srs[v.t+'_'+v.w]?.hard);
-  // 2. due words
   const due=pool.filter(v=>!srs[v.t+'_'+v.w]?.hard&&!isNew(v.t+'_'+v.w)&&isDue(v.t+'_'+v.w));
-  // 3. new words
   const newW=pool.filter(v=>isNew(v.t+'_'+v.w));
-  // mix: hard first, then due, then new — cap at 25
-  queue=shuffle([...hard,...due,...newW]).slice(0,25);
+  // Deduplicate by word before building queue
+  const seen=new Set();
+  const dedup=(arr)=>arr.filter(v=>{if(seen.has(v.w))return false;seen.add(v.w);return true;});
+  queue=shuffle([...dedup(hard),...dedup(due),...dedup(newW)]).slice(0,25);
   qIdx=0;
 }
 
@@ -797,8 +808,7 @@ function loadQuiz(v){
   document.getElementById('qz-ph').textContent=v.ph||'';
   document.getElementById('qz-rbar').className='rbar';
   document.getElementById('qz-next').className='nxtbtn';
-  const wrong=shuffle(VOCAB_ALL.filter(x=>x.id!==v.id)).slice(0,3);
-  const opts=shuffle([v,...wrong]);
+  const opts=shuffle([v,...getWrong(v,3)]);
   const cont=document.getElementById('qz-opts');
   cont.innerHTML='';
   opts.forEach(opt=>{
@@ -812,6 +822,7 @@ function loadQuiz(v){
       const rb=document.getElementById('qz-rbar');
       rb.className='rbar '+(ok?'ok':'bad');
       rb.textContent=ok?'✓ Đúng! '+v.vi:'✗ Sai! '+v.vi;
+      ok?playCorrect():playWrong();
       record(ok); document.getElementById('qz-next').className='nxtbtn on';
     };
     cont.appendChild(btn);
@@ -844,6 +855,7 @@ function checkTyping(){
   rev.style.display='block';
   rev.className='trev '+(ok?'ok':'bad');
   rev.textContent=ok?'✓ Chính xác! '+curV.vi:'✗ Sai! Đáp án: '+curV.w;
+  ok?playCorrect():playWrong();
   record(ok); document.getElementById('ty-next').className='nxtbtn on';
 }
 function skipTyping(){
@@ -861,8 +873,7 @@ function loadFill(v){
   document.getElementById('fl-hint').textContent='💡 '+v.ph+' — '+v.vi;
   document.getElementById('fl-rbar').className='rbar';
   document.getElementById('fl-next').className='nxtbtn';
-  const wrong=shuffle(VOCAB_ALL.filter(x=>x.id!==v.id)).slice(0,3);
-  const opts=shuffle([v,...wrong]);
+  const opts=shuffle([v,...getWrong(v,3)]);
   const cont=document.getElementById('fl-opts');
   cont.innerHTML='';
   opts.forEach(opt=>{
@@ -877,6 +888,7 @@ function loadFill(v){
       const rb=document.getElementById('fl-rbar');
       rb.className='rbar '+(ok?'ok':'bad');
       rb.textContent=ok?'✓ "'+v.w+'" — '+v.vi:'✗ Đáp án: "'+v.w+'"';
+      ok?playCorrect():playWrong();
       record(ok); document.getElementById('fl-next').className='nxtbtn on';
     };
     cont.appendChild(btn);
@@ -905,6 +917,7 @@ function checkListen(){
   const rb=document.getElementById('ls-rbar');
   rb.className='rbar '+(ok?'ok':'bad');
   rb.textContent=ok?'✓ '+curV.w+' — '+curV.vi:'✗ Đáp án: '+curV.w+' ('+curV.ph+')';
+  ok?playCorrect():playWrong();
   record(ok); document.getElementById('ls-next').className='nxtbtn on';
 }
 
